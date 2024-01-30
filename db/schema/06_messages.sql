@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   buyer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  item_id INTEGER REFERENCES items_for_same(id) ON DELETE CASCADE,
+  item_id INTEGER REFERENCES items_for_sale(id) ON DELETE CASCADE,
   message_content TEXT NOT NULL,
-  timeposted BOOLEAN SET DEFAULT false
+  timeposted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  message_read BOOLEAN SET DEFAULT false
 );
