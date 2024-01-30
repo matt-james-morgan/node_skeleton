@@ -35,7 +35,7 @@ router.get('/:id', (req, res)=>{
   req.session.user_id = req.params.id;
   userQueries.getItems()
   .then((items)=>{
-    res.json({ items });
+    res.send({ items });
   })
 })
 
