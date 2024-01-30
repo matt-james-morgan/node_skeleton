@@ -8,5 +8,6 @@ CREATE TABLE items_for_sale (
   title VARCHAR(255) NOT NULL,
   price_cents INTEGER NOT NULL,
   description VARCHAR(255),
-  image_url VARCHAR(255)
+  image_url VARCHAR(255),
+  sold BOOLEAN DEFAULT false
 );
