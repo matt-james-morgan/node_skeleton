@@ -18,9 +18,18 @@
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
   <main>
-    <h2>Items for Sale</h2>
+    <h1>Items for Sale</h1>
+    <ul>
+      <% items.forEach(function(item) { %>
+        <li>
+          <h2><%= item.title %></h2>
+          <p><%= item.description %></p>
+          <p>Price: $<%= (item.price_cents / 100).toFixed(2) %></p>
+          <img src="<%= item.image_url %>" alt="<%= item.title %>">
+        </li>
+      <% }) %>
+    </ul>
   </main>
 </body>
 
