@@ -8,5 +8,5 @@ CREATE TABLE messages (
   item_id INTEGER REFERENCES items_for_sale(id) ON DELETE CASCADE,
   message_content TEXT NOT NULL,
   timeposted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  message_read BOOLEAN SET DEFAULT false
+  message_read BOOLEAN DEFAULT false
 );
