@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const cookieSession = require('cookie-session');
-const { getAllItems } = require("../db/database");
+
 
 router.use(cookieSession({
 name: 'session',
@@ -19,17 +19,31 @@ keys: ["1"],
 
 }));
 
-router.get('/', (req, res) => {
-  res.render('index');
-});
+
 
 //This route is to bypass authentication for demo day. Use id 1
-router.get('/:id', (req, res)=>{
-  req.session.user_id = req.params.id;
+router.get('/', (req, res)=>{
+ 
+ const ID =  req.session.user_id;
+ const user = {user_id: ID}
+console.log(user);
   userQueries.getItems()
   .then((items)=>{
-    res.render("index", { items });
+    res.render("index", { items, user });
   })
+})
+
+router.get('/favourites', (req, res)=>{
+  res.render('/favourites');
+})
+
+router.get('/messages', (req, res)=>{
+  res.render('messages');
+})
+
+router.post('/', (req, res)=>{
+req.session.user_id = req.body.user_id
+res.redirect('/');
 })
 
 module.exports = router;
