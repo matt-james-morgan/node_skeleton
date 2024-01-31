@@ -7,11 +7,6 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT
-  // user: 'labber',
-  // host: 'localhost',
-  // database: 'midterm',
-  // password: 'labber',
-  // port: 5432
 });
 
 // Items for Sale
