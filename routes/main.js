@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const cookieSession = require('cookie-session');
+const { getAllItems } = require("../db/database");
 
 router.use(cookieSession({
 name: 'session',
@@ -19,14 +20,8 @@ keys: ["1"],
 }));
 
 router.get('/', (req, res) => {
-    getAllItems()
-      .then(items => {
-        res.render("index", { items })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  });
+  res.render('index');
+});
 
 //This route is to bypass authentication for demo day. Use id 1
 router.get('/:id', (req, res)=>{
