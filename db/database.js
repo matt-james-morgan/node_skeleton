@@ -1,17 +1,17 @@
-// require('dotenv').config();
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  // user: process.env.DB_USER,
-  // host: process.env.DB_HOST,
-  // database: process.env.DB_NAME,
-  // password: process.env.DB_PASS,
-  // port: process.env.DB_PORT
-  user: 'labber',
-  host: 'localhost',
-  database: 'midterm',
-  password: 'labber',
-  port: 5432
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT
+  // user: 'labber',
+  // host: 'localhost',
+  // database: 'midterm',
+  // password: 'labber',
+  // port: 5432
 });
 
 // Items for Sale
@@ -80,9 +80,4 @@ const getAllMessages = function (options, limit = 10) {
 
 getAllItems().then((res) => console.log(res));
 
-
-module.exports = {
-  getAllItems,
-  getAllMessages
-
-};
+module.exports = { getAllItems, getAllMessages }
