@@ -13,10 +13,11 @@ $(document).ready(function() {
     // get items from database and create an html element with that data
     fetch('/items')
     .then(res => {
-      // console.log("res.body: ", res.body)
+      console.log("res.body: ", res.body)
       return res.json()
     })
     .then(data => {
+      console.log("here??")
       console.log("data:", data);
         data.items.forEach(function(item) {
           const itemHTML = $(
