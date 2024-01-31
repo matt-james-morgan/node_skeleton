@@ -14,12 +14,12 @@ const { getAllItems } = require("../db/database");
 router.get('/', (req, res) => {
   getAllItems()
     .then(items => {
-      // console.log("ITEMS: ", items)
       res.json({ items })
     })
     .catch(error => {
       console.log(error);
     });
 });
+
 
 module.exports = router;
