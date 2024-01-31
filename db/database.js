@@ -12,7 +12,7 @@ const pool = new Pool({
 // Items for Sale
 
 // function that returns a promise that contains all items for sale listed in the database
-const getAllItems = function(options = {}, limit = 10) {
+const getAllItems = function(options = {} | null, limit = 10) {
 
   const queryParams = [];
 
@@ -20,12 +20,12 @@ const getAllItems = function(options = {}, limit = 10) {
   SELECT * FROM items_for_sale
   `;
 
-  if (options.minimum_price) {
+  if (options && options.minimum_price) {
     queryParams.push(options.minimum_price);
     queryString += `WHERE price_cents > $${queryParams.length}`;
   }
 
-  if (options.maximum_price) {
+  if (options && options.maximum_price) {
     queryParams.push(options.maximum_price);
 
     if (queryParams.length > 1) {
@@ -72,7 +72,5 @@ const getAllMessages = function (options, limit = 10) {
     .catch((err) => console.log("Error message: ", err));
 
 };
-
-getAllItems().then((res) => console.log(res));
 
 module.exports = { getAllItems, getAllMessages }
