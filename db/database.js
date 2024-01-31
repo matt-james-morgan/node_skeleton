@@ -51,4 +51,38 @@ const getAllItems = function(options = {}, limit = 10) {
 
 };
 
-module.exports = { getAllItems }
+const getAllMessages = function (options, limit = 10) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT * FROM messages
+  JOIN items_for_sale ON items_for_sale.id = item_id
+  `;
+
+  if (options.time_posted) {
+    queryParams.push(options.time_posted);
+    queryString +=
+    `
+    ORDER BY $${queryParams.length} DESC
+    `
+  }
+
+  queryParams.push(limit);
+  queryString += `
+  LIMIT $${queryParams.length}
+  `;
+
+  return pool.query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((err) => console.log("Error message: ", err));
+
+};
+
+getAllItems().then((res) => console.log(res));
+
+
+module.exports = {
+  getAllItems,
+  getAllMessages
+
+};

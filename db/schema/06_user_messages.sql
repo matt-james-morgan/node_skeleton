@@ -2,7 +2,7 @@
 
 DROP TABLE IF EXISTS messages CASCADE;
 
-CREATE TABLE messages (
+CREATE TABLE user_messages (
   id SERIAL PRIMARY KEY NOT NULL,
   buyer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   item_id INTEGER REFERENCES items_for_sale(id) ON DELETE CASCADE,
