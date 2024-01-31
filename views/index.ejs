@@ -20,15 +20,7 @@
 <body>
   <main>
     <h1>Items for Sale</h1>
-    <ul>
-      <% items.forEach(function(item) { %>
-        <li>
-          <h2><%= item.title %></h2>
-          <p><%= item.description %></p>
-          <p>Price: $<%= (item.price_cents / 100).toFixed(2) %></p>
-          <img src="<%= item.image_url %>" alt="<%= item.title %>">
-        </li>
-      <% }) %>
+    <ul class="main-feed">
     </ul>
   </main>
 </body>

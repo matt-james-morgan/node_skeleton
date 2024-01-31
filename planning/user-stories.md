@@ -32,6 +32,5 @@ Admins/sellers can:
 
 * users
 * items for sale (with price listed)
-* main feed
 * favourited items
 * messages
