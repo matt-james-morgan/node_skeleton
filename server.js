@@ -1,5 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
+const { getAllItems } = require("./db/database.js");
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -45,7 +46,13 @@ app.use('/users', usersRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  getAllItems()
+    .then(items => {
+      res.render("index", { items })
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 app.listen(PORT, () => {

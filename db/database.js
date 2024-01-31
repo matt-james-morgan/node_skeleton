@@ -51,4 +51,4 @@ const getAllItems = function(options = {}, limit = 10) {
 
 };
 
-getAllItems().then((res) => console.log(res));
+module.exports = { getAllItems }
