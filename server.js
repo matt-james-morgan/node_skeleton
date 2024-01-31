@@ -50,6 +50,7 @@ app.use('/items', itemsRoutes);
 app.get('/', (req, res) => {
   getAllItems()
     .then(items => {
+      console.log(items);
       res.render("index", { items })
     })
     .catch(error => {
