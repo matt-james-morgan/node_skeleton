@@ -32,7 +32,8 @@ $(document).ready(function() {
       data.items.forEach(function(item) {
         if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
           const itemHTML = $(
-            `<li class="item-card">
+            `<li>
+              <a class="item-card" href="/${item.id}">
                 <div class="item-text">
                   <div class="top-card">
                     <h2>${escape(item.title)}</h2>
@@ -41,6 +42,7 @@ $(document).ready(function() {
                   <p>${escape(item.description)}</p>
                 </div>
                 <img src="${item.image_url}" alt="${escape(item.title)}">
+              </a>
             </li>`
           );
           $('.main-feed').append(itemHTML);
