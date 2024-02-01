@@ -23,6 +23,9 @@
   <main>
     <div class="item-info"
       <h1><%= item.title %></h1>
+      <% if (item.sold){ %>
+        <p>SOLD</p>
+      <% } %>
       <p>$<%= item.price_cents / 100 %></p>
       <p><%= item.description %></p>
       <img src="<%= item.image_url %>" alt="<%= item.title %>">
