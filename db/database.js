@@ -46,11 +46,13 @@ const getAllItems = function(options = {} | null, limit = 10) {
 
 };
 
+// User Messages
+
 const getAllMessages = function (options, limit = 10) {
   const queryParams = [];
 
   let queryString = `
-  SELECT * FROM messages
+  SELECT * FROM user_messages
   JOIN items_for_sale ON items_for_sale.id = item_id
   `;
 
@@ -72,5 +74,6 @@ const getAllMessages = function (options, limit = 10) {
     .catch((err) => console.log("Error message: ", err));
 
 };
+
 
 module.exports = { getAllItems, getAllMessages }
