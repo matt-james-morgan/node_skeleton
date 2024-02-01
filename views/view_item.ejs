@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title><%= item.title%></title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -22,7 +22,11 @@
 
   <main>
 
-    <h1>Specific Item</h1>
+    <h1><%= item.title %></h1>
+    <p>$<%= item.price_cents / 100 %></p>
+    <p><%= item.description %></p>
+    <img src="<%= item.image_url %>" alt="<%= item.title %>">
+
 
   </main>
 </body>
