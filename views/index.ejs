@@ -20,6 +20,15 @@
 <body>
   <main>
     <h1>Items for Sale</h1>
+    <form id="filter-form">
+      <label for="min-price">Minimum Price:</label>
+      <input type="number" id="min-price" name="minPrice">
+
+      <label for="max-price">Maximum Price:</label>
+      <input type="number" id="max-price" name="maxPrice">
+
+      <button type="submit">Filter</button>
+    </form>
     <ul class="main-feed">
     </ul>
   </main>
