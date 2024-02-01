@@ -29,7 +29,7 @@ $(document).ready(function() {
     .then(data => {
       $('.main-feed').empty();
       data.items.forEach(function(item) {
-        if((item.price_cents / 100) > minPrice && (item.price_cents / 100) < maxPrice){
+        if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
           const itemHTML = $(
             `<li>
               <h2>${escape(item.title)}</h2>
