@@ -7,5 +7,10 @@ $(() => {
     return div.innerHTML;
   };
 
+  // get all messages that relate to a particular user
 
+  fetch('/messages')
+  .then(res => {
+    console.log(res);
+  })
 })

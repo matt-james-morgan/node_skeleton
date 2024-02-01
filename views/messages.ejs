@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/styles/messages.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/messages-feed.js"></script>
 
 </head>
 
@@ -23,6 +24,8 @@
     <%- include('partials/_header') %>
     <h1>Messages 📨</h1>
     <h2>Messages Feed</h2>
+    <ul class="message-feed">
+    </ul>
     <div class="message-card">
       <img class="message-card-img" src="<%= messages[0].image_url %>" alt="<%= messages[0].title %>">
       <div class="message-card-info">
