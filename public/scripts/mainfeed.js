@@ -13,11 +13,12 @@ $(document).ready(function() {
   const updateEmptyState = function() {
     const itemsLength = $('.main-feed li').length;
     if (itemsLength === 0) {
-      $('.main-feed').addClass('empty');
-    } else {
-      $('.main-feed').removeClass('empty');
-    }
-  }
+      const noResultHTML = $(
+        `<p class="empty">Sorry, no items are currently for sale within this price range.</p>`
+      )
+      $('.main-feed').append(noResultHTML);
+    };
+  };
 
   // gets all items from database and create an html element with that data
   const displayItems = function(minPrice, maxPrice) {
@@ -31,11 +32,15 @@ $(document).ready(function() {
       data.items.forEach(function(item) {
         if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
           const itemHTML = $(
-            `<li>
-              <h2>${escape(item.title)}</h2>
-              <p>${escape(item.description)}</p>
-              <p>Price: ${(item.price_cents / 100).toFixed(2)}</p>
-              <img src="${item.image_url}" alt="${escape(item.title)}">
+            `<li class="item-card">
+                <div class="item-text">
+                  <div class="top-card">
+                    <h2>${escape(item.title)}</h2>
+                  </div>
+                  <p>$${(item.price_cents / 100).toFixed(2)}</p>
+                  <p>${escape(item.description)}</p>
+                </div>
+                <img src="${item.image_url}" alt="${escape(item.title)}">
             </li>`
           );
           $('.main-feed').append(itemHTML);
