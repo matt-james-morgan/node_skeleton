@@ -21,12 +21,15 @@
 <body>
 
   <main>
-
-    <h1><%= item.title %></h1>
-    <p>$<%= item.price_cents / 100 %></p>
-    <p><%= item.description %></p>
-    <img src="<%= item.image_url %>" alt="<%= item.title %>">
-
+    <div class="item-info"
+      <h1><%= item.title %></h1>
+      <p>$<%= item.price_cents / 100 %></p>
+      <p><%= item.description %></p>
+      <img src="<%= item.image_url %>" alt="<%= item.title %>">
+    </div>
+    <a href="/messages/<%= item.id %>">
+      <button type="button">Message Seller</button>
+    </a>
 
   </main>
 </body>

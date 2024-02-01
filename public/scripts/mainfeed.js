@@ -37,6 +37,7 @@ $(document).ready(function() {
                 <div class="item-text">
                   <div class="top-card">
                     <h2>${escape(item.title)}</h2>
+                    <p class="heart">♡</p>
                   </div>
                   <p>$${(item.price_cents / 100).toFixed(2)}</p>
                   <p>${escape(item.description)}</p>
