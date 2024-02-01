@@ -38,10 +38,15 @@ console.log(user);
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  messageQueries.getMessages()
+  getAllMessages()
   .then((messages) => {
     res.render("messages", {messages, user})
   });
+
+console.log("This is the ID: ", ID);
+console.log("This is the user: ", user);
+
+});
 
 router.get('/messages/:id', (req, res) => {
 
@@ -55,15 +60,6 @@ router.get('/messages/:id', (req, res) => {
     console.log("Threw the following error: ", err);
   })
 })
-
-
-
-
-console.log("This is the ID: ", ID);
-console.log("This is the user: ", user);
-
-
-});
 
 router.get('/:id', (req, res) => {
   // get id of item that was clicked on. Change ID from string to integer.

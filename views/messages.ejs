@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/messages.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
 
@@ -23,13 +24,23 @@
     <h1>Messages 📨</h1>
     <h2>Messages Feed</h2>
     <div class="message-card">
-      <img src="/images/ukulele.png" alt="Ukulele, four stringed instrument">
-      <p>Item Name:</p>
-      <p>Item Description:</p>
-      <p>Buyer: Kira
-
-      </p>
+      <img class="message-card-img" src="<%= messages[0].image_url %>" alt="<%= messages[0].title %>">
+      <div class="message-card-info">
+        <h3>Item Name: <%= messages[0].title %>  </h3>
+        <p>Item Description: <%= messages[0].description %> </p>
+        <p>Buyer: <%= messages[0].name %></p>
+      </div>
     </div>
+
+    <div class="message-card">
+      <img class="message-card-img" src="<%= messages[0].image_url %>" alt="<%= messages[0].title %>">
+      <div class="message-card-info">
+        <h3>Item Name: <%= messages[0].title %>  </h3>
+        <p>Item Description: <%= messages[0].description %> </p>
+        <p>Buyer: <%= messages[0].name %></p>
+      </div>
+    </div>
+
   </main>
 </body>
 
