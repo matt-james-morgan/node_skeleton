@@ -48,13 +48,13 @@ console.log("This is the user: ", user);
 
 });
 
-router.get('/messages/:id', (req, res) => {
+router.get('/messages/1', (req, res) => {
 
   const messageID = parseInt(req.session.id);
 
   getAllMessages()
   .then(messages => {
-    res.render("messages", { messages });
+    res.render("message_window", { messages });
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
