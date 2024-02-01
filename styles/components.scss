@@ -1,5 +1,9 @@
 // styles for item_for_sale cards
 
+li {
+  display: block;
+}
+
 .main-feed {
   padding: 0px;
 }
@@ -24,8 +28,6 @@
     padding-right: 20px;
   }
 }
-
-
 
 .top-card {
   display: flex;

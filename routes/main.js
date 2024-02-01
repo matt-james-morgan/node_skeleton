@@ -8,8 +8,9 @@
 const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
-const messageQueries = require('../db/queries/getMessages.js');
+// const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
+const { getAllItems } = require('../db/database');
 
 
 router.use(cookieSession({
@@ -33,6 +34,28 @@ console.log(user);
     res.render("index", { items, user });
   })
 })
+
+router.get('/:id', (req, res) => {
+  // get id of item that was clicked on. Change ID from string to integer.
+  const itemID = parseInt(req.params.id, 10);
+
+  getAllItems()
+    .then(items => {
+      // check for item that matches id in req.params
+      const item = items.find(item => item.id === itemID);
+
+      if (item) {
+        console.log(item);
+        res.render("view_item", { item });
+      } else {
+        res.status(404).send('Item not found');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+});
 
 router.get('/favourites', (req, res)=>{
   res.render('/favourites');
