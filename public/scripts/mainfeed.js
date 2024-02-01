@@ -76,5 +76,13 @@ $(document).ready(function() {
   // Load items on page load
   displayItems(0, 1000000);
 
+  // event listener for click on heart icon
+  $(document).on('click', '.heart', function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    console.log("You clicked the heart!");
+    // ADD FUNCTIONALITY HERE TO ADD ITEM TO FAVOURITES
+  });
+
 });
 
