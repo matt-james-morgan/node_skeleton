@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
-// const messageQueries = require('../db/queries/getMessages.js');
+const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
 const { getAllItems } = require('../db/database');
 
@@ -35,6 +35,15 @@ console.log(user);
   })
 })
 
+router.get('/messages', (req, res)=>{
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  messageQueries.getMessages()
+  .then((messages) => {
+    res.render("messages", {messages, user});
+  });
+})
+
 router.get('/:id', (req, res) => {
   // get id of item that was clicked on. Change ID from string to integer.
   const itemID = parseInt(req.params.id, 10);
@@ -48,7 +57,7 @@ router.get('/:id', (req, res) => {
         console.log(item);
         res.render("view_item", { item });
       } else {
-        res.status(404).send('Item not found');
+        res.status(404).send('Item not found')
       }
     })
     .catch(err => {
@@ -59,15 +68,6 @@ router.get('/:id', (req, res) => {
 
 router.get('/favourites', (req, res)=>{
   res.render('/favourites');
-})
-
-router.get('/messages', (req, res)=>{
-  const ID = req.session.user_id;
-  const user = {user_id: ID}
-  messageQueries.getMessages()
-  .then((messages) => {
-    res.render("messages", {messages, user});
-  });
 })
 
 router.post('/', (req, res)=>{
