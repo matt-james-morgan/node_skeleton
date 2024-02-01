@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems } = require('../db/database');
+const { getAllItems, getAllMessages } = require('../db/database');
 
 
 router.use(cookieSession({
@@ -34,15 +34,36 @@ console.log(user);
     res.render("index", { items, user });
   })
 })
-
+// Find all messages associated with the logged in user
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
   messageQueries.getMessages()
   .then((messages) => {
-    res.render("messages", {messages, user});
+    res.render("messages", {messages, user})
   });
+
+router.get('/messages/:id', (req, res) => {
+
+  const messageID = parseInt(req.session.id);
+
+  getAllMessages()
+  .then(messages => {
+    res.render("messages", { messages });
+  })
+  .catch(err => {
+    console.log("Threw the following error: ", err);
+  })
 })
+
+
+
+
+console.log("This is the ID: ", ID);
+console.log("This is the user: ", user);
+
+
+});
 
 router.get('/:id', (req, res) => {
   // get id of item that was clicked on. Change ID from string to integer.
