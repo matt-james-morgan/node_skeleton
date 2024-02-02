@@ -47,10 +47,11 @@ $(document).ready(function() {
                     ${additionalHTML}
                     <p class="heart">♡</p>
                   </div>
+                  <p>${item.timeago}</p>
                   <p>$${(item.price_cents / 100).toFixed(2)}</p>
                   <p>${escape(item.description)}</p>
                 </div>
-                <img src="${item.image_url}" alt="${escape(item.title)}">
+                <img src="${escape(item.image_url)}" alt="${escape(item.title)}">
               </a>
             </li>`
           );

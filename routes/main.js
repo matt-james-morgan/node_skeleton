@@ -11,6 +11,7 @@ const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
 const { getAllItems } = require('../db/database');
+const { timeAgo } = require('../utils/helpers.js');
 
 
 router.use(cookieSession({
@@ -28,9 +29,16 @@ router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
  const user = {user_id: ID}
-console.log(user);
-  userQueries.getItems()
+  console.log(user);
+  getAllItems()
   .then((items)=>{
+    console.log("items:", items);
+    items.forEach((item) => {
+      item.timeago = timeAgo(item.created_at);
+      console.log(item);
+    })
+    // const timeSincePosted = timeAgo(item.created_at);
+    // console.log("TIMEAGO:", timeSincePosted);
     res.render("index", { items, user });
   })
 })
@@ -54,8 +62,9 @@ router.get('/:id', (req, res) => {
       const item = items.find(item => item.id === itemID);
 
       if (item) {
-        console.log(item);
-        res.render("view_item", { item });
+        const timeSincePosted = timeAgo(item.created_at);
+        console.log("TIMEAGO:", timeSincePosted);
+        res.render("view_item", { item, timeSincePosted });
       } else {
         res.status(404).send('Item not found')
       }
