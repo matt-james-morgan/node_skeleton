@@ -9,18 +9,20 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/message_window.css" />
   <title>Chat with buyer</title>
 
   <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/send-message.js"></script>
 </head>
 <body>
   <div class="message-container">
     <div class="sent-message">
-      <div class="sender"><p>Me</p></div>
+      <div class="sender"><h3>Me</h3></div>
       <div class="message-contents"><p>hope this works!</p></div>
     </div>
     <div class="received-message">
-      <div class="sender"><p>Me</p></div>
+      <div class="sender"><h3>Me</h3></div>
       <div class="message-contents"><p>hope this works!</p></div>
     </div>
     <form action="" class="send-container">
@@ -28,6 +30,5 @@
       <button type="submit" class="send-button">Send</button>
     </form>
   </div>
-  <script defer src="/scripts/send-message.js"></script>
 </body>
 </html>

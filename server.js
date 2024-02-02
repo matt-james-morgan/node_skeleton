@@ -3,17 +3,16 @@ require('dotenv').config();
 const { getAllItems } = require("./db/database.js");
 
 // Web server config
+
 const sassMiddleware = require('./lib/sass-middleware');
-
 const express = require('express');
-const app = express();
-
 const morgan = require('morgan');
 
-const net = require('net');
-const server = net.createServer(app);
-
 const PORT = process.env.PORT || 8080;
+const app = express();
+
+const http = require('http');
+const server = http.createServer(app);
 
 app.set('view engine', 'ejs');
 
@@ -74,7 +73,7 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-server.on('connection', (connection) => {
+server.on('connection', () => {
   console.log("New connection");
 
 });
