@@ -21,8 +21,10 @@
 <body>
 
   <main>
+    <a class="back-button" href="/">Back</a>
     <div class="item-info"
       <h1><%= item.title %></h1>
+      <%= timeSincePosted %>
       <% if (item.sold){ %>
         <p>SOLD</p>
       <% } %>

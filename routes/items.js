@@ -9,11 +9,17 @@ const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
 const { getAllItems, addItem } = require("../db/database");
+const { timeAgo, sortByMostRecent } = require("../utils/helpers")
 
 // api route that gets all items_for_sale in database
 router.get('/api', (req, res) => {
   getAllItems()
-    .then(items => {
+    .then(originalItems => {
+      originalItems.forEach((item) => {
+        item.timeago = timeAgo(item.created_at);
+        console.log(item);
+      })
+      const items = sortByMostRecent(originalItems);
       res.json({ items })
     })
     .catch(error => {

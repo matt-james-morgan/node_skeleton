@@ -9,5 +9,6 @@ CREATE TABLE items_for_sale (
   price_cents INTEGER NOT NULL,
   description VARCHAR(255),
   image_url VARCHAR(500),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   sold BOOLEAN DEFAULT false
 );
