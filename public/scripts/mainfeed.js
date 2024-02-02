@@ -77,11 +77,19 @@ $(document).ready(function() {
   displayItems(0, 1000000);
 
   // event listener for click on heart icon
+
   $(document).on('click', '.heart', function(event) {
     event.stopPropagation();
     event.preventDefault();
     console.log("You clicked the heart!");
-    // ADD FUNCTIONALITY HERE TO ADD ITEM TO FAVOURITES
+    if ($(this).hasClass('active')) {
+      $(this).removeClass('active')
+      $(this).text('♡')
+
+    } else {
+      $(this).addClass('active')
+      $(this).text('♥︎')
+    }
   });
 
 });
