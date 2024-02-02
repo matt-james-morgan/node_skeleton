@@ -52,14 +52,7 @@ app.use('/', mainPageRoute);
 // Separate them into separate routes files (see above).
 
 // app.get('/', (req, res) => {
-//   getAllItems()
-//     .then(items => {
-//       console.log(items);
-//       res.render("index", { items })
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
+//   res.render('index');
 // });
 
 app.listen(PORT, () => {

@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems } = require("../db/database");
+const { getAllItems, addItem } = require("../db/database");
 
 // api route that gets all items_for_sale in database
 router.get('/api', (req, res) => {
@@ -26,9 +26,23 @@ router.get("/new", (req, res) => {
   res.render("new_item");
 });
 
-// receive form submission for new item_for_sale
+// receive form submission for new item_for_sale -> send user to staging page
 router.post("/", (req, res) => {
-  console.log(req.body);
+  const title = req.body.title;
+  const description = req.body.description;
+  const price = req.body.price;
+  const imageURL = req.body.image;
+
+  const templateVars = {
+    title,
+    description,
+    price,
+    imageURL
+  };
+
+  addItem(title, description, price, imageURL);
+
+  res.render("index", templateVars);
 })
 
 
