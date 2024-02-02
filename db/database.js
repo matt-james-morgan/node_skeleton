@@ -46,6 +46,22 @@ const getAllItems = function(options = {} | null, limit = 10) {
 
 };
 
+// add new item_for_sale to database
+const addItem = function(title, descr, price, imgURL) {
+  const priceCents = price * 100;
+  return pool.query(`
+    INSERT INTO items_for_sale (title, description, price_cents, image_url, seller_id)
+    VALUES ($1, $2, $3, $4, 1)
+    `, [title, descr, priceCents, imgURL])
+  .then((res) => {
+    console.log("Item was inserted successfully.");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+};
+
 // User Messages
 
 const getAllMessages = function (options, limit = 10) {
@@ -76,4 +92,8 @@ const getAllMessages = function (options, limit = 10) {
 };
 
 
-module.exports = { getAllItems, getAllMessages }
+module.exports = {
+  getAllItems,
+  getAllMessages,
+  addItem
+};

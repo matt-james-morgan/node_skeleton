@@ -8,10 +8,10 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems } = require("../db/database");
+const { getAllItems, addItem } = require("../db/database");
 
-
-router.get('/', (req, res) => {
+// api route that gets all items_for_sale in database
+router.get('/api', (req, res) => {
   getAllItems()
     .then(items => {
       res.json({ items })
@@ -20,6 +20,30 @@ router.get('/', (req, res) => {
       console.log(error);
     });
 });
+
+// page for user to add item_for_sale
+router.get("/new", (req, res) => {
+  res.render("new_item");
+});
+
+// receive form submission for new item_for_sale -> send user to staging page
+router.post("/", (req, res) => {
+  const title = req.body.title;
+  const description = req.body.description;
+  const price = req.body.price;
+  const imageURL = req.body.image;
+
+  const templateVars = {
+    title,
+    description,
+    price,
+    imageURL
+  };
+
+  addItem(title, description, price, imageURL);
+
+  res.render("index", templateVars);
+})
 
 
 module.exports = router;
