@@ -10,8 +10,8 @@ const router  = express.Router();
 const db = require('../db/connection');
 const { getAllItems } = require("../db/database");
 
-
-router.get('/', (req, res) => {
+// api route that gets all items_for_sale in database
+router.get('/api', (req, res) => {
   getAllItems()
     .then(items => {
       res.json({ items })
@@ -20,6 +20,16 @@ router.get('/', (req, res) => {
       console.log(error);
     });
 });
+
+// page for user to add item_for_sale
+router.get("/new", (req, res) => {
+  res.render("new_item");
+});
+
+// receive form submission for new item_for_sale
+router.post("/", (req, res) => {
+  console.log(req.body);
+})
 
 
 module.exports = router;
