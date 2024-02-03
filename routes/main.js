@@ -42,7 +42,6 @@ router.get('/messages', (req, res)=>{
   .then((messages) => {
     res.render("messages", {messages, user})
   });
-
 });
 
 router.get('/messages/1', (req, res) => {
@@ -56,6 +55,10 @@ router.get('/messages/1', (req, res) => {
   .catch(err => {
     console.log("Threw the following error: ", err);
   })
+})
+
+router.post('/messages/1', (req, res) => {
+
 })
 
 router.get('/:id', (req, res) => {

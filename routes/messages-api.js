@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
 const { getAllMessages } = require("../db/database");
-
+// const io = require('socket.io')(process.env.PORT);
 
 router.get('/', (req, res) => {
   getAllMessages()
@@ -21,5 +21,13 @@ router.get('/', (req, res) => {
     });
 });
 
+
+// router.get('/', (req, res) => {
+//   io.on('connection', (socket) => {
+//     socket.on('send-chat-message', message => {
+//       socket.broadcast.emit('chat-message', message);
+//     })
+//     });
+// });
 
 module.exports = router;

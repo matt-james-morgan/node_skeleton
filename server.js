@@ -42,6 +42,7 @@ const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
+// const chatRoutes = require('./routes/chat-api.js');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -51,6 +52,7 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
 app.use('/api/messages', messagesRoutes);
+// app.use('/api/chat', chatRoutes);
 app.use('/', mainPageRoute);
 // Note: mount other resources here, using the same pattern above
 
@@ -76,8 +78,9 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-io.on('connection', (socket) => {
-  socket.on('send-chat-message', message => {
-    socket.broadcast.emit('chat-message', message);
-  })
-  });
+  io.on('connection', (socket) => {
+    socket.on('send-chat-message', message => {
+      socket.broadcast.emit('chat-message', message);
+    })
+    });
+
