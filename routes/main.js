@@ -43,9 +43,6 @@ router.get('/messages', (req, res)=>{
     res.render("messages", {messages, user})
   });
 
-console.log("This is the ID: ", ID);
-console.log("This is the user: ", user);
-
 });
 
 router.get('/messages/1', (req, res) => {

@@ -13,6 +13,9 @@ const app = express();
 
 const http = require('http');
 const server = http.createServer(app);
+const socketIO = require('socket.io');
+
+const io = socketIO(server);
 
 app.set('view engine', 'ejs');
 
@@ -73,12 +76,6 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-server.on('connection', (connection) => {
-  console.log("New connection");
-
-  connection.write('welcome to the server!');
-
-  // config connection to accept utf8
-  connection.setEncoding('utf8');
-
-});
+io.on('connection', (socket) => {
+  socket.emit('chat-message', 'Hello World')
+  });
