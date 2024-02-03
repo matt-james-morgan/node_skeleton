@@ -73,7 +73,12 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-server.on('connection', () => {
+server.on('connection', (connection) => {
   console.log("New connection");
+
+  connection.write('welcome to the server!');
+
+  // config connection to accept utf8
+  connection.setEncoding('utf8');
 
 });
