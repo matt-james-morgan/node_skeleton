@@ -30,13 +30,11 @@ router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
  const user = {user_id: ID}
-  console.log(user);
+ 
   getAllItems()
   .then((items)=>{
-    console.log("items:", items);
     items.forEach((item) => {
       item.timeago = timeAgo(item.created_at);
-      console.log(item);
     })
     // const timeSincePosted = timeAgo(item.created_at);
     // console.log("TIMEAGO:", timeSincePosted);
@@ -91,7 +89,7 @@ router.get('/:id', (req, res) => {
 
 //Lets user login and redirects to homepage
 router.post('/', (req, res)=>{
-req.session.user_id = req.body.user_id
+req.session.user_id = req.body.user_id;
 res.redirect('/');
 })
 

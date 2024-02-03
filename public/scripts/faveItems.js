@@ -1,28 +1,30 @@
 $(document).ready(function() {
-    const displayItems = function(minPrice, maxPrice) {
 
-        fetch('/api/faveItems')
+  const escape = function(str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
+
+    const displayItems = function() {
+
+        fetch('/faveItems/yo')
         .then(res => {
           return res.json()
         })
         .then(data => {
           $('.main-feed').empty();
-    
+          console.log("ITEMS BELLOW");
+          console.log(data.items);
           data.items.forEach(function(item) {
-            if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
-    
-              let additionalHTML = '';
-              if(item.sold) {
-                additionalHTML = '<p>SOLD</p>';
-              };
-    
+
               const itemHTML = $(
                 `<li>
                   <a class="item-card" href="/${item.id}">
                     <div class="item-text">
                       <div class="top-card">
                         <h2>${escape(item.title)}</h2>
-                        ${additionalHTML}
+                        
                         <p class="heart">♡</p>
                       </div>
                       <p>$${(item.price_cents / 100).toFixed(2)}</p>
@@ -33,7 +35,7 @@ $(document).ready(function() {
                 </li>`
               );
               $('.main-feed').append(itemHTML);
-            }
+            
           });
           
         })

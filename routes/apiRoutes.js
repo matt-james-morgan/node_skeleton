@@ -1,11 +1,14 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems } = require("../db/database");
+const faveItemsQuery = require('../db/queries/getFaveItems')
 
 
-router.get('/faveItems', (req, res) => {
-  getAllItems()
+router.get('faveItems', (req, res) => {
+  console.log('HELLLOOOOO');
+  const user = req.session.user_id
+  console.log(user );
+  faveItemsQuery.getFaveItems(user)
   .then(items => {
     res.json({ items })
   })
