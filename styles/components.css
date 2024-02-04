@@ -1,0 +1,39 @@
+li {
+  display: block;
+}
+
+.main-feed {
+  padding: 0px;
+}
+
+.item-text {
+  width: 100%;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  border-style: solid;
+  height: 200px;
+  margin-bottom: 15px;
+  box-shadow: 8px 8px 0px gray;
+  padding-right: 8%;
+}
+.item-card img {
+  max-width: 250px;
+  padding: 5px;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  padding-right: 20px;
+}
+.item-card .heart {
+  padding: 5px;
+}
+
+.top-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}/*# sourceMappingURL=components.css.map */

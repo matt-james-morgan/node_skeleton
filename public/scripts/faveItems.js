@@ -14,7 +14,7 @@ $(document).ready(function() {
         })
         .then(data => {
           $('.main-feed').empty();
-          console.log("ITEMS BELLOW");
+          
           console.log(data.items);
           data.items.forEach(function(item) {
 
