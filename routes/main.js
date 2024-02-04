@@ -51,12 +51,13 @@ router.get('/messages', (req, res)=>{
   });
 });
 
-router.get('/messages/1', (req, res) => {
+router.get('/messages/:id', (req, res) => {
 
-  const messageID = parseInt(req.session.id);
+  const messageID = parseInt(req.params.id);
 
   getAllMessages()
   .then(messages => {
+    const message = messages.find(message => message.id === messageID);
     res.render("message_window", { messages });
   })
   .catch(err => {
