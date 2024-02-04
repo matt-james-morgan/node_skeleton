@@ -10,20 +10,22 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-success">
       <h1>Echo Chamber Vintage</h1>
-      <form action ="/" method="GET">
-        <button>Home</button>
-      </form>
        <% if(user.user_id){ %>
+        <div class="nav-button-container">
+        <form action ="/" method="GET">
+          <button class="button-54" >Home</button>
+        </form>
         <form action="/favourites" method="GET">
-            <button>Favourites</button>
+            <button class="button-54" >Favourites</button>
         </form>
         <form action="/messages" method="GET">
-            <button>Messages</button>
+            <button class="button-54" >Messages</button>
         </form>
+      </div>
       <% }else{ %>
        <p>Login</p>
        <form action="/" method="POST">
-        <button>Login</button>
+        <button class="button-54">Login</button>
         <input type="text" name="user_id">
        </form>
 
