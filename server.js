@@ -35,12 +35,14 @@ const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
+const faveRoutes = require('./routes/faveItems.js')
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+app.use('/faveItems/', faveRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
 app.use('/messages-api', messagesRoutes);

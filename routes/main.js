@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
+const faveItemsQuery = require('../db/queries/getFaveItems.js')
 const cookieSession = require('cookie-session');
 const { getAllItems } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
@@ -29,9 +30,14 @@ router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
  const user = {user_id: ID}
-  console.log(user);
+
   getAllItems()
   .then((items)=>{
+    items.forEach((item) => {
+      item.timeago = timeAgo(item.created_at);
+    })
+    // const timeSincePosted = timeAgo(item.created_at);
+    // console.log("TIMEAGO:", timeSincePosted);
     res.render("index", { items, user });
   })
 })
@@ -43,6 +49,16 @@ router.get('/messages', (req, res)=>{
   .then((messages) => {
     res.render("messages", {messages, user});
   });
+})
+
+router.get('/favourites', (req, res)=>{
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  faveItemsQuery.getFaveItems(user.user_id)
+  .then((items)=>{
+    res.render("favourites", { items, user });
+  })
+
 })
 
 router.get('/:id', (req, res) => {
@@ -68,12 +84,12 @@ router.get('/:id', (req, res) => {
 
 });
 
-router.get('/favourites', (req, res)=>{
-  res.render('/favourites');
-})
 
+
+
+//Lets user login and redirects to homepage
 router.post('/', (req, res)=>{
-req.session.user_id = req.body.user_id
+req.session.user_id = req.body.user_id;
 res.redirect('/');
 })
 
