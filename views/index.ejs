@@ -7,9 +7,6 @@
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
@@ -24,18 +21,15 @@
   <%- include('partials/_header') %>
   <main>
 
-    <h1>Items for Sale</h1>
-    <form id="filter-form">
-      <label for="min-price">Minimum Price:</label>
-      <input type="number" id="min-price" name="minPrice">
+    <%- include('partials/_catergories') %>
 
-      <label for="max-price">Maximum Price:</label>
-      <input type="number" id="max-price" name="maxPrice">
-
-      <button type="submit">Filter</button>
-    </form>
-    <ul class="main-feed">
-    </ul>
+    
+    <div class="items-container">
+      <h1 class="title">Items for Sale</h1>
+      <ul class="main-feed">
+      </ul>
+    </div>
+   
   </main>
 </body>
 

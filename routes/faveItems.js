@@ -13,7 +13,7 @@ router.use(cookieSession({
     
 
 
-router.get('/yo', (req, res) => {
+router.get('/fave', (req, res) => {
     
   const user = req.session.user_id;
   

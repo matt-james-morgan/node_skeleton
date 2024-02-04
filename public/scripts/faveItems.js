@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     const displayItems = function() {
 
-        fetch('/faveItems/yo')
+        fetch('/faveItems/fave')
         .then(res => {
           return res.json()
         })
