@@ -1,4 +1,9 @@
 // styles for item_for_sale cards
+$titleVintageFont: 'Jost', sans-serif;
+$mainColor1:#EBE4D1;
+$mainColor2:#B4B4B3;
+$accent1:#26577C;
+$accent2:#E55604;
 
 li {
   display: block;
@@ -16,9 +21,8 @@ li {
   flex-direction: row-reverse;
   justify-content: flex-start;
   border-style: solid;
-  height: 200px;
+  height: auto;
   margin-bottom: 15px;
-  box-shadow: 8px 8px 0px gray;
   padding-right: 8%;
   img {
     max-width: 250px;
@@ -30,7 +34,12 @@ li {
   .heart {
     padding: 5px;
   }
+  transition: all ease-in-out 1s;
+}
 
+.item-card:hover{
+  box-shadow: 8px 8px 0px $accent1;
+ 
 }
 
 .top-card {
