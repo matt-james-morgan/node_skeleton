@@ -9,7 +9,19 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-// Items for Sale
+
+const getUserID = function(username) {
+  return pool.query(`
+  SELECT id FROM users
+  WHERE username = $1
+  `, [username])
+  .then((res) => {
+    return res.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
 
 // function that returns a promise that contains all items for sale listed in the database
 const getAllItems = function(options = {} | null, limit = 10) {
@@ -76,6 +88,35 @@ const getUserItems = function(username) {
   .catch((err) => console.log(err));
 }
 
+// toggle whether or not item is marked as sold
+const changeSoldStatus = function(itemID) {
+  return pool.query(`
+  UPDATE items_for_sale
+  SET sold = NOT sold
+  WHERE items_for_sale.id = $1;
+  `, [itemID])
+  .then((res) => {
+    console.log("Sold status updated");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+};
+
+// delete an item_for_sale from database
+const deleteItem = function(itemID) {
+  return pool.query(`
+  DELETE FROM items_for_sale
+  WHERE id = $1;
+  `, [itemID])
+  .then((res) => {
+    console.log("Item successfully deleted");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+};
+
 // User Messages
 
 const getAllMessages = function (options, limit = 10) {
@@ -110,5 +151,8 @@ module.exports = {
   getAllItems,
   getAllMessages,
   addItem,
-  getUserItems
+  getUserItems,
+  changeSoldStatus,
+  getUserID,
+  deleteItem
 };

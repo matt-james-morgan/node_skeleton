@@ -26,11 +26,14 @@
     <% for (let item of items) { %>
       <div class="item-card">
         <h3><%= item.title %></h3>
+        <% if (item.sold) { %>
+          <p>SOLD</p>
+        <% } %>
         <p><%= item.price_cents %></p>
         <p><%= item.description %></p>
-        <a href="/">Update Listing.. change href</a>
-        <a href="/">Mark as Sold.. add functionality</a>
-        <a href="/">Delete Listing</a>
+        <img src="<%= item.image_url %>" alt="<%= item.title %>">
+        <a href="/items/<%= item.id %>/sold">Mark as Sold</a>
+        <a href="/items/<%= item.id %>/delete">Delete Listing</a>
       </div>
     <% } %>
   </main>
