@@ -30,7 +30,7 @@ router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
  const user = {user_id: ID}
- 
+
   getAllItems()
   .then((items)=>{
     items.forEach((item) => {
@@ -58,7 +58,7 @@ router.get('/favourites', (req, res)=>{
   .then((items)=>{
     res.render("favourites", { items, user });
   })
-  
+
 })
 
 router.get('/:id', (req, res) => {
