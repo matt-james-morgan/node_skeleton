@@ -103,6 +103,20 @@ const changeSoldStatus = function(itemID) {
   })
 };
 
+// delete an item_for_sale from database
+const deleteItem = function(itemID) {
+  return pool.query(`
+  DELETE FROM items_for_sale
+  WHERE id = $1;
+  `, [itemID])
+  .then((res) => {
+    console.log("Item successfully deleted");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+};
+
 // User Messages
 
 const getAllMessages = function (options, limit = 10) {
@@ -139,5 +153,6 @@ module.exports = {
   addItem,
   getUserItems,
   changeSoldStatus,
-  getUserID
+  getUserID,
+  deleteItem
 };

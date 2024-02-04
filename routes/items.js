@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, addItem, changeSoldStatus, getUserID } = require("../db/database");
+const { getAllItems, addItem, changeSoldStatus, getUserID, deleteItem } = require("../db/database");
 const { timeAgo, sortByMostRecent } = require("../utils/helpers");
 const cookieSession = require('cookie-session');
 
@@ -58,6 +58,7 @@ router.post("/", (req, res) => {
   res.render("index", templateVars);
 });
 
+// route to mark an item as sold in db
 router.get("/:id/sold", (req, res) => {
 
   const itemID = req.params.id;
@@ -72,5 +73,19 @@ router.get("/:id/sold", (req, res) => {
 
 });
 
+// delete item_for_sale from database
+router.get("/:id/delete", (req, res) => {
+
+  const itemID = req.params.id;
+  const username = req.session.user_id;
+  getUserID(username)
+    .then((userID) => {
+      deleteItem(itemID);
+      res.redirect(`/users/${userID}/items`);
+      return;
+    })
+    .catch((err) => console.log(err));
+
+});
 
 module.exports = router;

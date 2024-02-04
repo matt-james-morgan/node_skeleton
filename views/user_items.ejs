@@ -32,9 +32,8 @@
         <p><%= item.price_cents %></p>
         <p><%= item.description %></p>
         <img src="<%= item.image_url %>" alt="<%= item.title %>">
-        <a href="/">Update Listing.. change href</a>
         <a href="/items/<%= item.id %>/sold">Mark as Sold</a>
-        <a href="/">Delete Listing</a>
+        <a href="/items/<%= item.id %>/delete">Delete Listing</a>
       </div>
     <% } %>
   </main>
