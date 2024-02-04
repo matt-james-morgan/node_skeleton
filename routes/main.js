@@ -29,7 +29,7 @@ keys: ["1"],
 router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
- const user = {user_id: ID}
+ const user = {user_id: ID};
 
   getAllItems()
   .then((items)=>{

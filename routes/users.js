@@ -7,9 +7,25 @@
 
 const express = require('express');
 const router  = express.Router();
+const cookieSession = require('cookie-session');
+const { getUserItems } = require('../db/database.js');
+
+router.use(cookieSession({
+  name: 'session',
+  keys: ["1"],
+}));
 
 router.get('/', (req, res) => {
   res.render('users');
-}); 
+});
+
+router.get('/:id/items', (req, res) => {
+  const username =  req.session.user_id;
+  getUserItems(username)
+    .then((items) => {
+      res.render('user_items', { items });
+    })
+    .catch((err) => console.log(err));
+});
 
 module.exports = router;

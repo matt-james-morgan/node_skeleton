@@ -62,6 +62,20 @@ const addItem = function(title, descr, price, imgURL) {
 
 };
 
+// view all items_for_sale that belong to a specific user
+const getUserItems = function(username) {
+  return pool.query(`
+  SELECT items_for_sale.*
+  FROM items_for_sale
+  JOIN users ON seller_id = users.id
+  WHERE username = $1
+  `, [username])
+  .then((res) => {
+    return res.rows;
+  })
+  .catch((err) => console.log(err));
+}
+
 // User Messages
 
 const getAllMessages = function (options, limit = 10) {
@@ -95,5 +109,6 @@ const getAllMessages = function (options, limit = 10) {
 module.exports = {
   getAllItems,
   getAllMessages,
-  addItem
+  addItem,
+  getUserItems
 };
