@@ -32,13 +32,6 @@ router.get('/', (req, res)=>{
   console.log(user);
   getAllItems()
   .then((items)=>{
-    console.log("items:", items);
-    items.forEach((item) => {
-      item.timeago = timeAgo(item.created_at);
-      console.log(item);
-    })
-    // const timeSincePosted = timeAgo(item.created_at);
-    // console.log("TIMEAGO:", timeSincePosted);
     res.render("index", { items, user });
   })
 })
