@@ -29,7 +29,7 @@ keys: ["1"],
 router.get('/', (req, res)=>{
 
  const ID =  req.session.user_id;
- const user = {user_id: ID}
+ const user = {user_id: ID};
 
   getAllItems()
   .then((items)=>{
@@ -63,6 +63,7 @@ router.get('/favourites', (req, res)=>{
 
 router.get('/:id', (req, res) => {
   // get id of item that was clicked on. Change ID from string to integer.
+  console.log("/:id route");
   const itemID = parseInt(req.params.id, 10);
 
   getAllItems()

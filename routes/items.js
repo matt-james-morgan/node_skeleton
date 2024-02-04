@@ -32,8 +32,9 @@ router.get("/new", (req, res) => {
   res.render("new_item");
 });
 
-// receive form submission for new item_for_sale -> send user to staging page
+// receive form submission for new item_for_sale -> send user back to home page
 router.post("/", (req, res) => {
+  console.log("received form submission")
   const title = req.body.title;
   const description = req.body.description;
   const price = req.body.price;
