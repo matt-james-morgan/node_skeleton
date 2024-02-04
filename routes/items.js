@@ -8,8 +8,14 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, addItem } = require("../db/database");
-const { timeAgo, sortByMostRecent } = require("../utils/helpers")
+const { getAllItems, addItem, changeSoldStatus, getUserID } = require("../db/database");
+const { timeAgo, sortByMostRecent } = require("../utils/helpers");
+const cookieSession = require('cookie-session');
+
+router.use(cookieSession({
+  name: 'session',
+  keys: ["1"],
+}));
 
 // api route that gets all items_for_sale in database
 router.get('/api', (req, res) => {
@@ -50,7 +56,21 @@ router.post("/", (req, res) => {
   addItem(title, description, price, imageURL);
 
   res.render("index", templateVars);
-})
+});
+
+router.get("/:id/sold", (req, res) => {
+
+  const itemID = req.params.id;
+  const username = req.session.user_id;
+  getUserID(username)
+    .then((userID) => {
+      changeSoldStatus(itemID);
+      res.redirect(`/users/${userID}/items`);
+      return;
+    })
+    .catch((err) => console.log(err));
+
+});
 
 
 module.exports = router;
