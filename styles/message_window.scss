@@ -1,0 +1,23 @@
+.message-container {
+  border-style: solid;
+  padding: 10px;
+}
+
+.received-message {
+  padding-left: 10px;
+  /* text-align: right; */
+  border: solid;
+  border-width: 1px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+.sent-message {
+  border: solid;
+    border-width: 1px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    text-align: right;
+    padding-right: 10px;
+    padding-left: 10px;
+}

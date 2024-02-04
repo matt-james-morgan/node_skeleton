@@ -7,5 +7,31 @@ $(() => {
     return div.innerHTML;
   };
 
+  // get all messages that relate to a particular user
 
-})
+  fetch('/api/messages')
+  .then(res => {
+    return res.json();
+  })
+  .then(data => {
+    $('.message-feed').empty();
+    data.messages.forEach(function(message) {
+      const msgHTML = $(
+        `
+        <li>
+          <div class="message-card">
+            <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
+            <div class="message-card-info">
+              <h3>Item Name: ${escape(message.title)}</h3>
+              <p>Item Description: ${escape(message.description)}</p>
+              <p>Buyer: ${escape(message.name)}</p>
+            </div>
+          </div>
+        </li>
+        `
+      );
+      $('.message-feed').append(msgHTML);
+    });
+  })
+  .catch(err => console.log("error loading messages: ", err));
+});

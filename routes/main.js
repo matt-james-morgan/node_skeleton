@@ -11,7 +11,7 @@ const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const faveItemsQuery = require('../db/queries/getFaveItems.js')
 const cookieSession = require('cookie-session');
-const { getAllItems } = require('../db/database');
+const { getAllItems, getAllMessages } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -41,14 +41,31 @@ router.get('/', (req, res)=>{
     res.render("index", { items, user });
   })
 })
-
+// Find all messages associated with the logged in user
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  messageQueries.getMessages()
+  getAllMessages()
   .then((messages) => {
-    res.render("messages", {messages, user});
+    res.render("messages", {messages, user})
   });
+});
+
+router.get('/messages/1', (req, res) => {
+
+  const messageID = parseInt(req.session.id);
+
+  getAllMessages()
+  .then(messages => {
+    res.render("message_window", { messages });
+  })
+  .catch(err => {
+    console.log("Threw the following error: ", err);
+  })
+})
+
+router.post('/messages/1', (req, res) => {
+
 })
 
 router.get('/favourites', (req, res)=>{

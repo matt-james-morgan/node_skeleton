@@ -10,8 +10,7 @@ const router  = express.Router();
 const db = require('../db/connection');
 const { getAllMessages } = require("../db/database");
 
-
-router.get('/messages', (req, res) => {
+router.get('/', (req, res) => {
   getAllMessages()
     .then(messages => {
       res.json({ messages })

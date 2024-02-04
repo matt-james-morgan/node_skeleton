@@ -125,19 +125,12 @@ const getAllMessages = function (options, limit = 10) {
   let queryString = `
   SELECT * FROM user_messages
   JOIN items_for_sale ON items_for_sale.id = item_id
+  JOIN users ON users.id = seller_id
   `;
-
-  if (options.time_posted) {
-    queryParams.push(options.time_posted);
-    queryString +=
-    `
-    ORDER BY $${queryParams.length} DESC
-    `
-  }
 
   queryParams.push(limit);
   queryString += `
-  LIMIT $${queryParams.length}
+  LIMIT $${queryParams.length};
   `;
 
   return pool.query(queryString, queryParams)

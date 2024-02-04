@@ -3,12 +3,19 @@ require('dotenv').config();
 const { getAllItems } = require("./db/database.js");
 
 // Web server config
+
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+const http = require('http');
+const server = http.createServer(app);
+const socketIO = require('socket.io');
+
+const io = socketIO(server);
 
 app.set('view engine', 'ejs');
 
@@ -37,6 +44,7 @@ const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
 const faveRoutes = require('./routes/faveItems.js')
 
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -45,7 +53,8 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/faveItems/', faveRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
-app.use('/messages-api', messagesRoutes);
+app.use('/api/messages', messagesRoutes);
+
 app.use('/', mainPageRoute);
 // Note: mount other resources here, using the same pattern above
 
@@ -57,6 +66,16 @@ app.use('/', mainPageRoute);
 //   res.render('index');
 // });
 
-app.listen(PORT, () => {
+
+
+
+server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+  io.on('connection', (socket) => {
+    socket.on('send-chat-message', message => {
+      socket.broadcast.emit('chat-message', message);
+    })
+    });
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/message_window.css" />
+  <title>Chat with buyer</title>
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script defer src="/scripts/send-message.js"></script>
+</head>
+<body>
+  <div class="message-container">
+  </div>
+  <form action="" id="send-container">
+    <input type="text" id="message-input">
+    <button type="submit" class="send-button">Send</button>
+  </form>
+</body>
+</html>
