@@ -11,28 +11,26 @@
       return div.innerHTML;
     };
 
-    
 
-   
-   
-    
+
+
+
+
 
     fetch('/api/messages')
     .then(res =>{
-
-      return res.json();
-
+      return res.json()
     })
     .then((data) => {
-      console.log("BELOW IS THE DATA FROM SCRIPT");
-      console.log(data);
       // Prevent form data from submitting to server
+      const username = data.user[0].username;
+      socket.emit('chat-user', username)
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
         const appendSentMessage = function (message) {
           const sendMessage = `
           <div id="sent-message" class="sent-message">
-          <div class="sender"><h3>You:</h3>
+          <div class="sender"><h3>${username}:</h3>
           </div>
           <div class="message-contents"><p>${message}</p>
           </div>
@@ -46,11 +44,11 @@
         socket.emit('send-chat-message', message);
         messageInput.value = '';
       });
-     
-      const appendReceivedMessage = function (message) {
+
+      const appendReceivedMessage = function (message, user) {
         const messageElement = `
         <div id="received-message" class="received-message">
-        <div class="sender"><h3>${data.user[0].username}</h3>
+        <div class="sender"><h3>${user}</h3>
         </div>
         <div class="message-contents"><p>${message}</p>
         </div>
@@ -59,17 +57,9 @@
         $('.message-container').append(messageElement)
       }
       socket.on('chat-message', data => {
-        appendReceivedMessage(data);
+        appendReceivedMessage(data.message, data.name);
       })
     });
-
-
-
-// socket.on('chat-message', data => {
-//   appendMessage(data);
-// });
-
-
   });
 
 

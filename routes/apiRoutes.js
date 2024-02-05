@@ -1,12 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems, getUsername } = require('../db/database');
+const { getAllItems, getFaveItems, getUserItems, getUsername, getAllMessages } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
 router.get('images', (req, res) => {
-  
+
 });
 
 // api route that gets all items_for_sale in database
@@ -29,18 +29,18 @@ const cookieSession = require('cookie-session');
 router.use(cookieSession({
     name: 'session',
     keys: ["1"],
-    
+
     // Cookie Options
-    
+
     }));
-    
+
 
 
 router.get('/favourites', (req, res) => {
-    
+
   const user = req.session.user_id;
-  
-  
+
+
   getFaveItems(user)
   .then(items => {
     res.json({ items })
@@ -51,9 +51,9 @@ router.get('/favourites', (req, res) => {
 });
 
 router.get('/userItems', (req, res) => {
-    
+
   const user = req.session.user_id;
-  
+
 
   getUserItems(user)
   .then(items => {
@@ -66,13 +66,13 @@ router.get('/userItems', (req, res) => {
 });
 
 router.get('/userName', (req, res) => {
-    
+
   const id = req.session.user_id;
-  
+
 
   getUsername(id)
   .then(username => {
-    
+
     res.json( username )
   })
   .catch(error => {
@@ -80,7 +80,19 @@ router.get('/userName', (req, res) => {
   });
 });
 
-
+router.get('/messages', (req, res) => {
+  getAllMessages()
+    .then(messages => {
+      getUsername(req.session.user_id)
+      .then((user)=>{
+        res.json({ messages, user})
+      }).catch(error => {
+        console.log(error);
+      });
+    }).catch(error => {
+      console.log(error);
+    });
+});
 
 
 

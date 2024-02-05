@@ -41,7 +41,6 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
-const messagesRoutes = require('./routes/messages-api.js');
 const apiRoutes = require('./routes/apiRoutes');
 
 
@@ -53,7 +52,6 @@ app.use('/api/widgets', widgetApiRoutes);
 // app.use('/faveItems/', faveRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
-app.use('/api/messages', messagesRoutes);
 app.use('/api', apiRoutes);
 
 app.use('/', mainPageRoute);
@@ -74,9 +72,16 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
+//Socket IO user/messaging information
+
+const users = {};
   io.on('connection', (socket) => {
+    socket.on('chat-user', username => {
+      users[socket.id] = username
+    });
+
     socket.on('send-chat-message', message => {
-      socket.broadcast.emit('chat-message', message);
+      socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
     })
     });
 

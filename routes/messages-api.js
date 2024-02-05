@@ -13,24 +13,24 @@ const cookieSession = require('cookie-session');
 
 
 
-router.use(cookieSession({
-  name: 'session',
-  keys: ["1"],
-}));
+// router.use(cookieSession({
+//   name: 'session',
+//   keys: ["1"],
+// }));
 
-router.get('/', (req, res) => {
-  getAllMessages()
-    .then(messages => {
-      getUsername(req.session.user_id)
-      .then((user)=>{
-        res.json({ messages, user})
-      }).catch(error => {
-        console.log(error);
-      });  
-    }).catch(error => {
-      console.log(error);
-    });  
-});
+// router.get('/', (req, res) => {
+//   getAllMessages()
+//     .then(messages => {
+//       getUsername(req.session.user_id)
+//       .then((user)=>{
+//         res.json({ messages, user})
+//       }).catch(error => {
+//         console.log(error);
+//       });
+//     }).catch(error => {
+//       console.log(error);
+//     });
+// });
 
 
-module.exports = router;
+// module.exports = router;
