@@ -36,11 +36,10 @@ router.get('/', (req, res)=>{
     items.forEach((item) => {
       item.timeago = timeAgo(item.created_at);
     })
-    // const timeSincePosted = timeAgo(item.created_at);
-    // console.log("TIMEAGO:", timeSincePosted);
     res.render("index", { items, user });
   })
 })
+
 // Find all messages associated with the logged in user
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;

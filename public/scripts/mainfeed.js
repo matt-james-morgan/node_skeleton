@@ -23,7 +23,7 @@ $(document).ready(function() {
   // gets all items from database and create an html element with that data
   const displayItems = function(minPrice, maxPrice) {
 
-    fetch('/items/api')
+    fetch('/api/items')
     .then(res => {
       return res.json()
     })
