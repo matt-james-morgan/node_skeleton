@@ -15,28 +15,17 @@
   <link rel="stylesheet" href="/styles/components.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <!-- <script defer src="/scripts/mainfeed.js"></script> -->
+  <script defer src="/scripts/userItems.js"></script> 
 </head>
 
 <body>
-
+  <%- include('partials/_header') %>
   <main>
-    <a href="/">Back</a>
-    <h1>Items You Have For Sale</h1>
-    <a class="back-button" href="/">Back</a>
-    <% for (let item of items) { %>
-      <div class="item-card">
-        <h3><%= item.title %></h3>
-        <% if (item.sold) { %>
-          <p>SOLD</p>
-        <% } %>
-        <p><%= item.price_cents %></p>
-        <p><%= item.description %></p>
-        <img src="<%= item.image_url %>" alt="<%= item.title %>">
-        <a href="/items/<%= item.id %>/sold">Mark as Sold</a>
-        <a href="/items/<%= item.id %>/delete">Delete Listing</a>
-      </div>
-    <% } %>
+    <div class="items-container">
+      <h1>Items You Have For Sale</h1>
+      <ul class="main-feed">
+      </ul>
+    </div>
   </main>
 </body>
 

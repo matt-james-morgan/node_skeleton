@@ -75,14 +75,14 @@ const addItem = function(title, descr, price, imgURL) {
 };
 
 // view all items_for_sale that belong to a specific user
-const getUserItems = function(username) {
+const getUserItems = function(user) {
   return pool.query(`
-  SELECT items_for_sale.*
+  SELECT *
   FROM items_for_sale
-  JOIN users ON seller_id = users.id
-  WHERE username = $1
-  `, [username])
+  WHERE seller_id = 1
+  `)
   .then((res) => {
+    console.log(res.rows);
     return res.rows;
   })
   .catch((err) => console.log(err));

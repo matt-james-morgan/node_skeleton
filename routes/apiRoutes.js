@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems } = require('../db/database');
+const { getAllItems, getFaveItems, getUserItems } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
@@ -40,6 +40,7 @@ router.get('/favourites', (req, res) => {
     
   const user = req.session.user_id;
   
+  
   getFaveItems(user)
   .then(items => {
     res.json({ items })
@@ -48,6 +49,24 @@ router.get('/favourites', (req, res) => {
     console.log(error);
   });
 });
+
+router.get('/userItems', (req, res) => {
+    
+  const user = req.session.user_id;
+  
+
+  getUserItems(user)
+  .then(items => {
+    console.log(items);
+    res.json({ items })
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+
+
 
 
 

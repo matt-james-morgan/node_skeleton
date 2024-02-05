@@ -42,7 +42,6 @@ const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
-// const faveRoutes = require('./routes/faveItems.js');
 const apiRoutes = require('./routes/apiRoutes');
 
 

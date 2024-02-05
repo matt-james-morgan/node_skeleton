@@ -20,10 +20,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id/items', (req, res) => {
-  const username =  req.session.user_id;
-  getUserItems(username)
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  getUserItems(user)
     .then((items) => {
-      res.render('user_items', { items });
+      
+      res.render('user_items', { items, user });
     })
     .catch((err) => console.log(err));
 });

@@ -15,7 +15,7 @@ $(document).ready(function() {
         .then(data => {
           $('.main-feed').empty();
           
-          console.log(data.items);
+          
           data.items.forEach(function(item) {
 
               const itemHTML = $(
