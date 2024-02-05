@@ -141,10 +141,19 @@ const getAllMessages = function (options, limit = 10) {
   JOIN users ON users.id = seller_id
   `;
 
+  if (options.user_id) {
+    queryParams.push(options.user_id)
+    queryString += `
+    WHERE user_messages.buyer_id = $${queryParams.length}
+    `
+  }
+
   queryParams.push(limit);
   queryString += `
   LIMIT $${queryParams.length};
   `;
+
+  console.log("This is options: ", options);
 
   return pool.query(queryString, queryParams)
     .then((res) => res.rows)

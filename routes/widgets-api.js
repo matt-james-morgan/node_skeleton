@@ -25,12 +25,12 @@ const { getUserID } = require('../db/database');
 //     });
 // });
 
-router.get('/:id', (req, res) => {
-  const userID = req.session.user_id;
-  const ID = {user_id: userID};
+// router.get('/:id', (req, res) => {
+//   const userID = req.session.user_id;
+//   const ID = {user_id: userID};
 
-  getUserID(ID)
-  .then(user => { res.json({ user })});
-});
+//   getUserID(ID)
+//   .then(user => { res.json({ user })});
+// });
 
 module.exports = router;

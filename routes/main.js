@@ -43,7 +43,7 @@ router.get('/', (req, res)=>{
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  getAllMessages()
+  getAllMessages(user)
   .then((messages) => {
     res.render("messages", {messages, user})
   });
@@ -54,19 +54,17 @@ router.get('/messages/:id', (req, res) => {
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
 
-  getAllMessages()
+  getAllMessages(user)
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
-    res.render("message_window", { messages , user});
+    if (message) {
+      res.render("message_window", { message , user});
+    }
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
   })
 })
-
-// router.post('/messages/1', (req, res) => {
-
-// })
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;

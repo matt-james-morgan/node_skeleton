@@ -81,9 +81,13 @@ router.get('/userName', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  getAllMessages()
+
+  const user = req.session.user_id;
+  const ID = {user_id: user};
+
+  getAllMessages(ID)
     .then(messages => {
-      getUsername(req.session.user_id)
+      getUsername(user)
       .then((user)=>{
         res.json({ messages, user})
       }).catch(error => {
@@ -94,8 +98,19 @@ router.get('/messages', (req, res) => {
     });
 });
 
+router.get('/messageCards', (req, res) => {
 
+  const user = req.session.user_id;
+  const ID = {user_id: user};
 
+  getAllMessages(ID)
+    .then(messages => {
+      res.json({ messages })
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
 
 
 module.exports = router;

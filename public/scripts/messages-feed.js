@@ -9,12 +9,13 @@ $(() => {
 
   // get all messages that relate to a particular user
 
-  fetch('/api/messages')
+  fetch('/api/messageCards')
   .then(res => {
     return res.json();
   })
   .then(data => {
     $('.message-feed').empty();
+    console.log(data);
     data.messages.forEach(function(message) {
       const msgHTML = $(
         `
