@@ -1,13 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const faveItemsQuery = require('../db/queries/getFaveItems');
-const { getAllItems } = require('../db/database');
+const { getAllItems, getFaveItems } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
 router.get('images', (req, res) => {
-  console.log('HELLLOOOOO');
+  
 });
 
 // api route that gets all items_for_sale in database
@@ -25,6 +24,31 @@ router.get('/items', (req, res) => {
       console.log(error);
     });
 });
+
+const cookieSession = require('cookie-session');
+router.use(cookieSession({
+    name: 'session',
+    keys: ["1"],
+    
+    // Cookie Options
+    
+    }));
+    
+
+
+router.get('/favourites', (req, res) => {
+    
+  const user = req.session.user_id;
+  
+  getFaveItems(user)
+  .then(items => {
+    res.json({ items })
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
 
 
 module.exports = router;

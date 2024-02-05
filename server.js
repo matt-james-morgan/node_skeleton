@@ -13,9 +13,9 @@ const app = express();
 
 const http = require('http');
 const server = http.createServer(app);
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
 
-const io = socketIO(server);
+// const io = socketIO(server);
 
 app.set('view engine', 'ejs');
 
@@ -42,7 +42,7 @@ const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
-const faveRoutes = require('./routes/faveItems.js');
+// const faveRoutes = require('./routes/faveItems.js');
 const apiRoutes = require('./routes/apiRoutes');
 
 
@@ -51,7 +51,7 @@ const apiRoutes = require('./routes/apiRoutes');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/faveItems/', faveRoutes);
+// app.use('/faveItems/', faveRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
 app.use('/api/messages', messagesRoutes);
@@ -75,9 +75,9 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-  io.on('connection', (socket) => {
-    socket.on('send-chat-message', message => {
-      socket.broadcast.emit('chat-message', message);
-    })
-    });
+  // io.on('connection', (socket) => {
+  //   socket.on('send-chat-message', message => {
+  //     socket.broadcast.emit('chat-message', message);
+  //   })
+  //   });
 

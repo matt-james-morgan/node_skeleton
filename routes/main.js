@@ -9,9 +9,8 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
-const faveItemsQuery = require('../db/queries/getFaveItems.js')
 const cookieSession = require('cookie-session');
-const { getAllItems, getAllMessages } = require('../db/database');
+const { getAllItems, getAllMessages, getFaveItems } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -71,7 +70,7 @@ router.post('/messages/1', (req, res) => {
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  faveItemsQuery.getFaveItems(user.user_id)
+  getFaveItems(user.user_id)
   .then((items)=>{
     res.render("favourites", { items, user });
   })
