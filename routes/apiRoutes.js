@@ -1,7 +1,9 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const faveItemsQuery = require('../db/queries/getFaveItems')
+const faveItemsQuery = require('../db/queries/getFaveItems');
+const { getAllItems } = require('../db/database');
+const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
 router.get('images', (req, res) => {

@@ -42,7 +42,8 @@ const usersRoutes = require('./routes/users');
 const mainPageRoute = require('./routes/main');
 const itemsRoutes = require('./routes/items');
 const messagesRoutes = require('./routes/messages-api.js');
-const faveRoutes = require('./routes/faveItems.js')
+const faveRoutes = require('./routes/faveItems.js');
+const apiRoutes = require('./routes/apiRoutes');
 
 
 // Mount all resource routes
@@ -54,6 +55,7 @@ app.use('/faveItems/', faveRoutes);
 app.use('/users', usersRoutes);
 app.use('/items', itemsRoutes);
 app.use('/api/messages', messagesRoutes);
+app.use('/api', apiRoutes);
 
 app.use('/', mainPageRoute);
 // Note: mount other resources here, using the same pattern above

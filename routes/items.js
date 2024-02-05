@@ -40,7 +40,8 @@ router.get("/new", (req, res) => {
 
 // receive form submission for new item_for_sale -> send user back to home page
 router.post("/", (req, res) => {
-  console.log("received form submission")
+
+  const user = req.session.user_id;
   const title = req.body.title;
   const description = req.body.description;
   const price = req.body.price;
@@ -50,7 +51,8 @@ router.post("/", (req, res) => {
     title,
     description,
     price,
-    imageURL
+    imageURL,
+    user
   };
 
   addItem(title, description, price, imageURL);
