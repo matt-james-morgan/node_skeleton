@@ -153,6 +153,33 @@ const getBuyerMessages = function (options, limit = 10) {
   LIMIT $${queryParams.length};
   `;
 
+  return pool.query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((err) => console.log("Error message: ", err));
+
+};
+
+const getSellerMessages = function (options, limit = 10) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT * FROM user_messages
+  JOIN items_for_sale ON items_for_sale.id = item_id
+  JOIN users ON users.id = seller_id
+  `;
+
+  if (options.user_id) {
+    queryParams.push(options.user_id)
+    queryString += `
+    WHERE items_for_sale.seller_id = $${queryParams.length}
+    `
+  }
+
+  queryParams.push(limit);
+  queryString += `
+  LIMIT $${queryParams.length};
+  `;
+
   console.log("This is options: ", options);
 
   return pool.query(queryString, queryParams)
@@ -173,6 +200,7 @@ const getFaveItems = (user) => {
 module.exports = {
   getAllItems,
   getBuyerMessages,
+  getSellerMessages,
   addItem,
   getUserItems,
   changeSoldStatus,

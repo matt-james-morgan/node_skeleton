@@ -15,8 +15,7 @@ $(() => {
   })
   .then(data => {
     $('.message-feed').empty();
-    console.log(data);
-    data.messages.forEach(function(message) {
+    data.buyerMessages.forEach(function(message) {
       const msgHTML = $(
         `
         <li>
@@ -26,7 +25,26 @@ $(() => {
             <div class="message-card-info">
               <h3>Item Name: ${escape(message.title)}</h3>
               <p>Item Description: ${escape(message.description)}</p>
-              <p>Buyer: ${escape(message.name)}</p>
+              <p>Buyer: ${escape(message.name)} (<i>Me</i>)</p>
+            </div>
+          </div>
+        </li>
+        `
+      );
+      $('.message-feed').append(msgHTML);
+    });
+
+    data.sellerMessages.forEach(function(message) {
+      const msgHTML = $(
+        `
+        <li>
+        <a class = "message" href ="/messages/${message.id}"
+          <div class="message-card">
+            <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
+            <div class="message-card-info">
+              <h3>Item Name: ${escape(message.title)}</h3>
+              <p>Item Description: ${escape(message.description)}</p>
+              <p>Seller: ${escape(message.name)}</p>
             </div>
           </div>
         </li>
