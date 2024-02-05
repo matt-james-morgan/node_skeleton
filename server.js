@@ -13,9 +13,9 @@ const app = express();
 
 const http = require('http');
 const server = http.createServer(app);
-// const socketIO = require('socket.io');
+const socketIO = require('socket.io');
 
-// const io = socketIO(server);
+const io = socketIO(server);
 
 app.set('view engine', 'ejs');
 
@@ -74,9 +74,9 @@ server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-  // io.on('connection', (socket) => {
-  //   socket.on('send-chat-message', message => {
-  //     socket.broadcast.emit('chat-message', message);
-  //   })
-  //   });
+  io.on('connection', (socket) => {
+    socket.on('send-chat-message', message => {
+      socket.broadcast.emit('chat-message', message);
+    })
+    });
 

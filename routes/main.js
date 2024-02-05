@@ -63,9 +63,9 @@ router.get('/messages/:id', (req, res) => {
   })
 })
 
-router.post('/messages/1', (req, res) => {
+// router.post('/messages/1', (req, res) => {
 
-})
+// })
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;

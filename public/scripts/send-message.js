@@ -17,7 +17,10 @@
       // console.log(res.json());
       return res.json();
     }).then((data) => {
-      socket.emit('new-user', data.messages[0].name)
+      // socket.emit('new-user', data.messages[0].name)
+      const fetchUserCookie = function () {
+        fetch('/')
+      };
       // Prevent form data from submitting to server
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -33,7 +36,7 @@
           $(".message-container").append(sendMessage);
         };
         // Store message text field and send it back to the server
-        const message = messageInput.value;
+        const message = escape(messageInput.value);
         appendSentMessage(message);
         socket.emit('send-chat-message', message);
         messageInput.value = '';
