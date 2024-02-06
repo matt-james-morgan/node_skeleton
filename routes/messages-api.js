@@ -8,16 +8,28 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllMessages } = require("../db/database");
+const { getAllMessages, getUsername } = require("../db/database");
+const cookieSession = require('cookie-session');
+
+
+
+router.use(cookieSession({
+  name: 'session',
+  keys: ["1"],
+}));
 
 router.get('/', (req, res) => {
   getAllMessages()
     .then(messages => {
-      res.json({ messages })
-    })
-    .catch(error => {
+      getUsername(req.session.user_id)
+      .then((user)=>{
+        res.json({ messages, user})
+      }).catch(error => {
+        console.log(error);
+      });  
+    }).catch(error => {
       console.log(error);
-    });
+    });  
 });
 
 

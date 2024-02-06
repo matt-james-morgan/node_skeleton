@@ -17,11 +17,15 @@
   <script defer src="/scripts/send-message.js"></script>
 </head>
 <body>
-  <div class="message-container">
-  </div>
-  <form action="" id="send-container">
-    <input type="text" id="message-input">
-    <button type="submit" class="send-button">Send</button>
-  </form>
+  <%- include('partials/_header') %>
+  <main>
+    <div class="message-container">
+    </div>
+    <form action="" id="send-container">
+      <input type="text" id="message-input">
+      <button type="submit" class="send-button">Send</button>
+    </form>
+  </main>
+
 </body>
 </html>

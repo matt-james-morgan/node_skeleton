@@ -11,16 +11,21 @@
       return div.innerHTML;
     };
 
+    
+
+   
+   
+    
 
     fetch('/api/messages')
     .then(res =>{
-      // console.log(res.json());
+
       return res.json();
-    }).then((data) => {
-      // socket.emit('new-user', data.messages[0].name)
-      const fetchUserCookie = function () {
-        fetch('/')
-      };
+
+    })
+    .then((data) => {
+      console.log("BELOW IS THE DATA FROM SCRIPT");
+      console.log(data);
       // Prevent form data from submitting to server
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -41,11 +46,11 @@
         socket.emit('send-chat-message', message);
         messageInput.value = '';
       });
-
+     
       const appendReceivedMessage = function (message) {
         const messageElement = `
         <div id="received-message" class="received-message">
-        <div class="sender"><h3>${data.messages[0].name}</h3>
+        <div class="sender"><h3>${data.user[0].username}</h3>
         </div>
         <div class="message-contents"><p>${message}</p>
         </div>

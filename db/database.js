@@ -23,6 +23,19 @@ const getUserID = function(username) {
   })
 }
 
+const getUsername = function(id) {
+  return pool.query(`
+  SELECT username FROM users
+  WHERE id = $1
+  `, [id])
+  .then((res) => {
+    return res.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 // function that returns a promise that contains all items for sale listed in the database
 const getAllItems = function(options = {} | null, limit = 10) {
 
@@ -156,5 +169,6 @@ module.exports = {
   changeSoldStatus,
   getUserID,
   deleteItem,
-  getFaveItems
+  getFaveItems,
+  getUsername
 };

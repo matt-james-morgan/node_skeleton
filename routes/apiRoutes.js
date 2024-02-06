@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems } = require('../db/database');
+const { getAllItems, getFaveItems, getUserItems, getUsername } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
@@ -57,13 +57,29 @@ router.get('/userItems', (req, res) => {
 
   getUserItems(user)
   .then(items => {
-    console.log(items);
+
     res.json({ items })
   })
   .catch(error => {
     console.log(error);
   });
 });
+
+router.get('/userName', (req, res) => {
+    
+  const id = req.session.user_id;
+  
+
+  getUsername(id)
+  .then(username => {
+    
+    res.json( username )
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
 
 
 
