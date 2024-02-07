@@ -34,13 +34,13 @@ $(document).ready(function() {
         return res.json()
       })
       .then(favouritesData => {
-        console.log("favouritesData: ", favouritesData)
+        
 
 
         $('.main-feed').empty();
 
         data.items.forEach(function(item) {
-          console.log("item: ", item)
+        
           for (let i of favouritesData.items) {
             if (i.id === item.id) {
               item["favourited"] = true;

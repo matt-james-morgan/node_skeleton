@@ -40,11 +40,34 @@ a {
 li{
   width: 100%;
 }
-.title-container{
-  display: block;
-  text-align: center;
-}
 
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Use space-between to place items at the start and end */
+  padding-bottom: 1em;
+  img {
+    align-self: center;
+    padding-left: 4em;
+  }
+
+  .arrow {
+    align-self: flex-end;
+    
+    color: $mainColor1;
+    font-size: 30px;
+    font-weight: 900;
+    transition: all ease 1s;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+  
+  .active{
+    transform: rotate(-180deg);
+  }
+}
 
 
 header{
@@ -133,6 +156,8 @@ input::-webkit-inner-spin-button {
 .items-container{
   width: 70%;
 }
+
+
 
 
 
