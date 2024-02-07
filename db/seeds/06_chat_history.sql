@@ -1,4 +1,4 @@
--- user_messages table seeds
+-- chat_history table seeds
 
 INSERT INTO chat_history (sender_id, receiver_id, message_content)
 VALUES (1, 2, 'Hello, is this item still available?'),

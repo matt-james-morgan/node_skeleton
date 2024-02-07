@@ -132,7 +132,7 @@ const deleteItem = function(itemID) {
 
 // User Messages
 
-const getBuyerMessages = function (options, limit = 10) {
+const getBuyerMessageCards = function (options, limit = 10) {
   const queryParams = [];
 
   let queryString = `
@@ -159,7 +159,7 @@ const getBuyerMessages = function (options, limit = 10) {
 
 };
 
-const getSellerMessages = function (options, limit = 10) {
+const getSellerMessageCards = function (options, limit = 10) {
   const queryParams = [];
 
   let queryString = `
@@ -199,8 +199,8 @@ const getFaveItems = (user) => {
 
 module.exports = {
   getAllItems,
-  getBuyerMessages,
-  getSellerMessages,
+  getBuyerMessageCards,
+  getSellerMessageCards,
   addItem,
   getUserItems,
   changeSoldStatus,

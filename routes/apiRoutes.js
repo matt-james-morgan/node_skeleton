@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessages, getSellerMessages } = require('../db/database');
+const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessageCards, getSellerMessageCards } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
@@ -85,7 +85,7 @@ router.get('/messages', (req, res) => {
     const user = req.session.user_id;
     const ID = {user_id: user};
 
-    getBuyerMessages(ID)
+    getBuyerMessageCards(ID)
       .then(messages => {
         getUsername(user)
         .then((user)=>{
@@ -122,9 +122,9 @@ router.get('/messageCards', (req, res) => {
     const user = req.session.user_id;
     const ID = {user_id: user};
 
-    getBuyerMessages(ID)
+    getBuyerMessageCards(ID)
       .then(buyerMessages => {
-        getSellerMessages(ID)
+        getSellerMessageCards(ID)
         .then(sellerMessages => {
           res.json({ buyerMessages, sellerMessages })
 
