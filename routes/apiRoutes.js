@@ -9,7 +9,8 @@ const { getAllItems,
         getBuyerMessageCards,
         getSellerMessageCards,
         getSentMessages,
-        getReceivedMessages } = require('../db/database');
+        getReceivedMessages,
+        addToFavourites } = require('../db/database');
 
 
 router.get('images', (req, res) => {
@@ -132,28 +133,17 @@ router.get('/messageCards', (req, res) => {
 
 });
 
-router.get('/chatHistory', (req, res) => {
+router.post('/addFavourite', (req, res) => {
 
-  if (req.session.user_id) {
-    const user = req.session.user_id;
-    const ID = {user_id: user};
+  const userID = Number(req.session.user_id);
+  console.log("req: ", req.body)
+  const itemID = req.body.itemId;
+  console.log("user, item", userID, itemID);
 
-    getSentMessages(ID)
-      .then(buyerMessages => {
-        getReceivedMessages(ID)
-        .then(sellerMessages => {
-          res.json({ buyerMessages, sellerMessages })
-            })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  } else {
-    res.status(403).send("Must Log In to see messages!📨");
-  };
+  addToFavourites(itemID, userID);
 
 });
+
 
 
 

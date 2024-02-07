@@ -18,20 +18,20 @@ router.use(cookieSession({
 }));
 
 // api route that gets all items_for_sale in database
-router.get('/api', (req, res) => {
-  getAllItems()
-    .then(originalItems => {
-      originalItems.forEach((item) => {
-        item.timeago = timeAgo(item.created_at);
-        console.log(item);
-      })
-      const items = sortByMostRecent(originalItems);
-      res.json({ items })
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
+// router.get('/api', (req, res) => {
+//   getAllItems()
+//     .then(originalItems => {
+//       originalItems.forEach((item) => {
+//         item.timeago = timeAgo(item.created_at);
+//         console.log(item);
+//       })
+//       const items = sortByMostRecent(originalItems);
+//       res.json({ items })
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// });
 
 // page for user to add item_for_sale
 router.get("/new", (req, res) => {

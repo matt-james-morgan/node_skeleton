@@ -28,37 +28,54 @@ $(document).ready(function() {
       return res.json()
     })
     .then(data => {
-      $('.main-feed').empty();
 
-      data.items.forEach(function(item) {
-        if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
+      fetch('/api/favourites')
+      .then(res => {
+        return res.json()
+      })
+      .then(favouritesData => {
+        console.log("favouritesData: ", favouritesData)
 
-          let additionalHTML = '';
-          if(item.sold) {
-            additionalHTML = '<p>SOLD</p>';
-          };
 
-          const itemHTML = $(
-            `<li>
-              <a class="item-card" href="/${item.id}">
-                <div class="item-text">
-                  <div class="top-card">
-                    <h2>${escape(item.title)}</h2>
-                    ${additionalHTML}
-                    <p class="heart">♡</p>
+        $('.main-feed').empty();
+
+        data.items.forEach(function(item) {
+          console.log("item: ", item)
+          for (let i of favouritesData.items) {
+            if (i.id === item.id) {
+              item["favourited"] = true;
+            }
+          }
+          if((item.price_cents / 100) >= minPrice && (item.price_cents / 100) <= maxPrice){
+
+            let additionalHTML = '';
+            if(item.sold) {
+              additionalHTML = '<p>SOLD</p>';
+            };
+
+            const itemHTML = $(
+              `<li data-id=${item.id}>
+                <a class="item-card" href="/${item.id}">
+                  <div class="item-text">
+                    <div class="top-card">
+                      <h2>${escape(item.title)}</h2>
+                      ${additionalHTML}
+                      <p class="heart">${item.favourited ? '♥︎' : '♡'}</p>
+                    </div>
+                    <p>${item.timeago}</p>
+                    <p>$${(item.price_cents / 100).toFixed(2)}</p>
+                    <p>${escape(item.description)}</p>
                   </div>
-                  <p>${item.timeago}</p>
-                  <p>$${(item.price_cents / 100).toFixed(2)}</p>
-                  <p>${escape(item.description)}</p>
-                </div>
-                <img src="${escape(item.image_url)}" alt="${escape(item.title)}">
-              </a>
-            </li>`
-          );
-          $('.main-feed').append(itemHTML);
-        }
-      });
-      updateEmptyState();
+                  <img src="${escape(item.image_url)}" alt="${escape(item.title)}">
+                </a>
+              </li>`
+            );
+            $('.main-feed').append(itemHTML);
+          }
+        });
+        updateEmptyState();
+      })
+
     })
     .catch(err => {
       console.log('Error loading items:', err);
@@ -80,6 +97,8 @@ $(document).ready(function() {
   // event listener for click on heart icon
 
   $(document).on('click', '.heart', function(event) {
+    const itemId = $(this).closest('li').data('id')
+    console.log("itemId: ", itemId)
     event.stopPropagation();
     event.preventDefault();
     console.log("You clicked the heart!");
@@ -90,8 +109,20 @@ $(document).ready(function() {
     } else {
       $(this).addClass('active')
       $(this).text('♥︎')
+
+      fetch('/api/addFavourite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          itemId: itemId
+        })
+      })
+
     }
   });
+
 
 });
 
