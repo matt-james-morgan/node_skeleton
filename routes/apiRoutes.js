@@ -132,6 +132,29 @@ router.get('/messageCards', (req, res) => {
 
 });
 
+router.get('/chatHistory', (req, res) => {
+
+  if (req.session.user_id) {
+    const user = req.session.user_id;
+    const ID = {user_id: user};
+
+    getSentMessages(ID)
+      .then(buyerMessages => {
+        getReceivedMessages(ID)
+        .then(sellerMessages => {
+          res.json({ buyerMessages, sellerMessages })
+            })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  } else {
+    res.status(403).send("Must Log In to see messages!📨");
+  };
+
+});
+
 
 
 module.exports = router;
