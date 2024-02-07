@@ -9,7 +9,8 @@ const { getAllItems,
         getBuyerMessageCards,
         getSellerMessageCards,
         getSentMessages,
-        getReceivedMessages } = require('../db/database');
+        getReceivedMessages,
+        addToFavourites } = require('../db/database');
 
 
 router.get('images', (req, res) => {
@@ -131,6 +132,18 @@ router.get('/messageCards', (req, res) => {
   };
 
 });
+
+router.post('/addFavourite', (req, res) => {
+
+  const userID = Number(req.session.user_id);
+  console.log("req: ", req.body)
+  const itemID = req.body.itemId;
+  console.log("user, item", userID, itemID);
+
+  addToFavourites(itemID, userID);
+
+});
+
 
 
 

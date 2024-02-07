@@ -84,7 +84,20 @@ const addItem = function(title, descr, price, imgURL) {
   .catch((err) => {
     console.log(err);
   })
+};
 
+// add item_for_sale to favourites
+const addToFavourites = function (itemID, buyerID) {
+  return pool.query(`
+  INSERT INTO favourited_items (item_id, buyer_id)
+  VALUES ($1, $2)
+  `, [itemID, buyerID])
+  .then((res) => {
+    console.log("Item was added to favourites")
+  })
+  .catch((err) => {
+    console.log("There was an error:", err);
+  })
 };
 
 // view all items_for_sale that belong to a specific user
@@ -250,5 +263,6 @@ module.exports = {
   getUserID,
   deleteItem,
   getFaveItems,
-  getUsername
+  getUsername,
+  addToFavourites
 };
