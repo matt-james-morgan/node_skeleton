@@ -15,6 +15,7 @@ const http = require('http');
 const server = http.createServer(app);
 const socketIO = require('socket.io');
 
+
 const io = socketIO(server);
 
 app.set('view engine', 'ejs');
@@ -33,6 +34,7 @@ app.use(
   })
 );
 app.use(express.static('public'));
+app.use(express.json());
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

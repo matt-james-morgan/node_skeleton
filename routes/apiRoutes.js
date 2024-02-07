@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessages } = require('../db/database');
+const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessages, addToFavourites } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
 
 
@@ -111,6 +111,18 @@ router.get('/messageCards', (req, res) => {
       console.log(error);
     });
 });
+
+router.post('/addFavourite', (req, res) => {
+
+  const userID = Number(req.session.user_id);
+  console.log("req: ", req.body)
+  const itemID = req.body.itemId;
+  console.log("user, item", userID, itemID);
+
+  addToFavourites(itemID, userID);
+
+});
+
 
 
 module.exports = router;
