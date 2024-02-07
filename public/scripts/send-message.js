@@ -12,11 +12,11 @@
     };
 
 
+// Message history
 
 
 
-
-
+// Create new messages
     fetch('/api/messages')
     .then(res =>{
       return res.json()

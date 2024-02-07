@@ -1,8 +1,16 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessages, addToFavourites } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
+const { getAllItems,
+        getFaveItems,
+        getUserItems,
+        getUsername,
+        getBuyerMessageCards,
+        getSellerMessageCards,
+        getSentMessages,
+        getReceivedMessages,
+        addToFavourites } = require('../db/database');
 
 
 router.get('images', (req, res) => {
@@ -81,35 +89,48 @@ router.get('/userName', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
+  if (req.session.user_id) {
+    const user = req.session.user_id;
+    const ID = {user_id: user};
 
-  const user = req.session.user_id;
-  const ID = {user_id: user};
-
-  getBuyerMessages(ID)
-    .then(messages => {
-      getUsername(user)
-      .then((user)=>{
-        res.json({ messages, user})
+    getBuyerMessageCards(ID)
+      .then(messages => {
+        getUsername(user)
+        .then((user)=>{
+          res.json({ messages, user})
+        }).catch(error => {
+          console.log(error);
+        });
       }).catch(error => {
         console.log(error);
       });
-    }).catch(error => {
-      console.log(error);
-    });
+
+  } else {
+    res.redirect('/');
+  }
 });
 
 router.get('/messageCards', (req, res) => {
 
-  const user = req.session.user_id;
-  const ID = {user_id: user};
+  if (req.session.user_id) {
+    const user = req.session.user_id;
+    const ID = {user_id: user};
 
-  getBuyerMessages(ID)
-    .then(messages => {
-      res.json({ messages })
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    getBuyerMessageCards(ID)
+      .then(buyerMessages => {
+        getSellerMessageCards(ID)
+        .then(sellerMessages => {
+          res.json({ buyerMessages, sellerMessages })
+            })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  } else {
+    res.status(403).send("Must Log In to see messages!📨");
+  };
+
 });
 
 router.post('/addFavourite', (req, res) => {
@@ -122,6 +143,7 @@ router.post('/addFavourite', (req, res) => {
   addToFavourites(itemID, userID);
 
 });
+
 
 
 
