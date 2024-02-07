@@ -23,7 +23,7 @@ $(document).ready(function() {
                   <a class="item-card" href="/${item.id}">
                     <div class="item-text">
                       <div class="top-card">
-                        <h2>${escape(item.title)}</h2>
+                        <h3>${escape(item.title)}</h3>
                         
                         <p class="heart">♡</p>
                       </div>

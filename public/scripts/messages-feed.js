@@ -19,8 +19,8 @@ $(() => {
       const msgHTML = $(
         `
         <li>
-        <a class = "message" href ="/messages/${message.id}"
-          <div class="message-card">
+        <a class="item-card" href ="/messages/${message.id}"
+          <div class="item-text">
             <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
             <div class="message-card-info">
               <h3>Item Name: ${escape(message.title)}</h3>

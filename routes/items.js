@@ -35,7 +35,9 @@ router.use(cookieSession({
 
 // page for user to add item_for_sale
 router.get("/new", (req, res) => {
-  res.render("new_item");
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  res.render("new_item", {user} );
 });
 
 // receive form submission for new item_for_sale -> send user back to home page

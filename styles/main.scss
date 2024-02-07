@@ -16,12 +16,19 @@ main{
   width: 100%;
   display: flex;
   justify-content: space-around;
- 
   flex-grow: 1;
+}
+
+img{
+  height: 8em;
 }
 
 h2, label{
   color: $mainColor1;
+}
+
+h3{
+  color: $accent1;
 }
 
 a {
@@ -33,12 +40,12 @@ a {
 li{
   width: 100%;
 }
-
-.title{
-  font-family: $titleVintageFont;
+.title-container{
+  display: block;
   text-align: center;
-  color: #EBE4D1;
 }
+
+
 
 header{
   width: 100%;
