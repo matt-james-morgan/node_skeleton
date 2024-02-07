@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems, getBuyerMessageCards, getFaveItems } = require('../db/database');
+const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -55,6 +55,17 @@ router.get('/messages/:id', (req, res) => {
   const messageID = parseInt(req.params.id);
 
   getBuyerMessageCards(user)
+  .then(messages => {
+    const message = messages.find(message => message.id === messageID);
+    if (message) {
+      res.render("message_window", { message , user});
+    }
+  })
+  .catch(err => {
+    console.log("Threw the following error: ", err);
+  })
+
+  getSellerMessageCards(user)
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
     if (message) {

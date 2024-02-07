@@ -1,8 +1,15 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, getFaveItems, getUserItems, getUsername, getBuyerMessageCards, getSellerMessageCards } = require('../db/database');
 const { timeAgo, sortByMostRecent } = require('../utils/helpers');
+const { getAllItems,
+        getFaveItems,
+        getUserItems,
+        getUsername,
+        getBuyerMessageCards,
+        getSellerMessageCards,
+        getSentMessages,
+        getReceivedMessages } = require('../db/database');
 
 
 router.get('images', (req, res) => {
@@ -102,20 +109,6 @@ router.get('/messages', (req, res) => {
   }
 });
 
-// router.get('/messageCards', (req, res) => {
-
-//   const user = req.session.user_id;
-//   const ID = {user_id: user};
-
-//   getBuyerMessages(ID)
-//     .then(messages => {
-//       res.json({ messages })
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// });
-
 router.get('/messageCards', (req, res) => {
 
   if (req.session.user_id) {
@@ -127,7 +120,6 @@ router.get('/messageCards', (req, res) => {
         getSellerMessageCards(ID)
         .then(sellerMessages => {
           res.json({ buyerMessages, sellerMessages })
-
             })
       })
       .catch(error => {
