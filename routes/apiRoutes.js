@@ -81,21 +81,25 @@ router.get('/userName', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
+  if (req.session.user_id) {
+    const user = req.session.user_id;
+    const ID = {user_id: user};
 
-  const user = req.session.user_id;
-  const ID = {user_id: user};
-
-  getBuyerMessages(ID)
-    .then(messages => {
-      getUsername(user)
-      .then((user)=>{
-        res.json({ messages, user})
+    getBuyerMessages(ID)
+      .then(messages => {
+        getUsername(user)
+        .then((user)=>{
+          res.json({ messages, user})
+        }).catch(error => {
+          console.log(error);
+        });
       }).catch(error => {
         console.log(error);
       });
-    }).catch(error => {
-      console.log(error);
-    });
+
+  } else {
+    res.redirect('/');
+  }
 });
 
 // router.get('/messageCards', (req, res) => {
@@ -114,20 +118,26 @@ router.get('/messages', (req, res) => {
 
 router.get('/messageCards', (req, res) => {
 
-  const user = req.session.user_id;
-  const ID = {user_id: user};
+  if (req.session.user_id) {
+    const user = req.session.user_id;
+    const ID = {user_id: user};
 
-  getBuyerMessages(ID)
-    .then(buyerMessages => {
-      getSellerMessages(ID)
-      .then(sellerMessages => {
-        res.json({ buyerMessages, sellerMessages })
+    getBuyerMessages(ID)
+      .then(buyerMessages => {
+        getSellerMessages(ID)
+        .then(sellerMessages => {
+          res.json({ buyerMessages, sellerMessages })
 
-          })
-    })
-    .catch(error => {
-      console.log(error);
-    });
+            })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  } else {
+    res.status(403).send("Must Log In to see messages!📨");
+  };
+
 });
 
 
