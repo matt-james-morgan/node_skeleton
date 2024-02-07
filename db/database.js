@@ -130,7 +130,7 @@ const deleteItem = function(itemID) {
   })
 };
 
-// User Messages
+// User Message Cards
 
 const getBuyerMessageCards = function (options, limit = 10) {
   const queryParams = [];
@@ -180,13 +180,54 @@ const getSellerMessageCards = function (options, limit = 10) {
   LIMIT $${queryParams.length};
   `;
 
-  console.log("This is options: ", options);
 
   return pool.query(queryString, queryParams)
     .then((res) => res.rows)
     .catch((err) => console.log("Error message: ", err));
 
 };
+
+// User message history
+
+const getSentMessages = function (options) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT * FROM chat_history
+  `;
+  if (options.user_id) {
+    queryParams.push(options.user_id)
+    queryString += `
+    WHERE sender_id = $${queryParams.length};
+    `
+  }
+
+  return pool.query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((err) => console.log("Error message: ", err));
+
+  };
+//
+const getReceivedMessages = function (options) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT * FROM chat_history
+  `;
+  if (options.user_id) {
+    queryParams.push(options.user_id)
+    queryString += `
+    WHERE receiver_id = $${queryParams.length};
+    `
+  }
+
+  return pool.query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((err) => console.log("Error message: ", err));
+
+  };
+//
+
 
 const getFaveItems = (user) => {
   return pool.query('SELECT * FROM items_for_sale JOIN favourited_items ON items_for_sale.id = favourited_items.item_id WHERE favourited_items.buyer_id = $1 ;', [user])
@@ -201,6 +242,8 @@ module.exports = {
   getAllItems,
   getBuyerMessageCards,
   getSellerMessageCards,
+  getSentMessages,
+  getReceivedMessages,
   addItem,
   getUserItems,
   changeSoldStatus,
