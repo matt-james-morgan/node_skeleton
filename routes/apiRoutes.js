@@ -13,9 +13,7 @@ const { getAllItems,
         addToFavourites } = require('../db/database');
 
 
-router.get('images', (req, res) => {
 
-});
 
 // api route that gets all items_for_sale in database
 router.get('/items', (req, res) => {
