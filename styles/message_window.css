@@ -2,4 +2,21 @@ main {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.message-container {
+  margin-top: 3em;
+  height: 500px;
+  width: 75%;
+  border: 3px solid black;
+  overflow: auto;
+  scrollbar-color: #E55604;
+}
+
+.sent-message {
+  text-align: right;
+}
+
+.received-message {
+  text-align: left;
 }/*# sourceMappingURL=message_window.css.map */

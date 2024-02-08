@@ -1,5 +1,27 @@
+$mainColor1:#EBE4D1;
+$mainColor2:#B4B4B3;
+$accent1:#26577C;
+$accent2:#E55604;
+
 main{
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.message-container{
+  margin-top: 3em;
+  height: 500px;
+  width: 75%;
+  border: 3px solid black;
+  overflow: auto;
+  scrollbar-color: $accent2;
+}
+
+.sent-message{
+  text-align: right;
+}
+
+.received-message{
+  text-align: left;
 }
