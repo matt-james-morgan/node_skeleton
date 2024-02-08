@@ -222,14 +222,16 @@ const getSellerMessageCards = function (options, limit = 10) {
 
 // User message history
 
-const getSentMessages = function (user) {
+const getSentMessages = function (user, roomID) {
   return pool.query(`
   SELECT * FROM chat_history
-  JOIN users ON user.id = sender_id
-  WHERE sender_id = $1 OR receiver_id = $1
-  `, [user])
+  JOIN users ON users.id = sender_id
+  WHERE (sender_id = $1
+  OR receiver_id = $1)
+  AND item_id =$2;
+  `, [user, roomID])
     .then((res) => res.rows)
-    .catch((err) => console.log("Error message: ", err));
+    .catch((err) => console.log("SQL Error message: ", err));
 
   };
 //
