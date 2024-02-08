@@ -42,7 +42,7 @@ $(document).ready(function() {
         data.items.forEach(function(item) {
           console.log("item: ", item)
           for (let i of favouritesData.items) {
-            if (i.id === item.id) {
+            if (i.item_id === item.id) {
               item["favourited"] = true;
             }
           }
