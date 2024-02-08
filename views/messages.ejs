@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
   <link rel="stylesheet" href="/styles/messages.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
@@ -20,13 +21,12 @@
 </head>
 
 <body>
+  <%- include('partials/_header') %>
   <main>
-    <%- include('partials/_header') %>
     <h1>Messages 📨</h1>
-    <h2>Messages Feed</h2>
     <ul class="message-feed">
     </ul>
-    </div>
+    
 
   </main>
 </body>

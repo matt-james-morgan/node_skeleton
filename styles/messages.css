@@ -1,14 +1,15 @@
-main{
+main {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
 }
+
 h1, h2 {
   text-align: center;
   font-size: 2em;
   margin: 0.67em 0;
 }
 
-.item-card{
+.item-card {
   padding: 1em;
-}
+}/*# sourceMappingURL=messages.css.map */
