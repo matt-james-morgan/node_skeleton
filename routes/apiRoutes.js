@@ -122,6 +122,9 @@ router.get('/messageCards', (req, res) => {
         .then(sellerMessages => {
           res.json({ buyerMessages, sellerMessages })
             })
+            .catch(error => {
+              console.log(error);
+            });
       })
       .catch(error => {
         console.log(error);

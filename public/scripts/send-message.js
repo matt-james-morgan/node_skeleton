@@ -1,4 +1,4 @@
-  const socket = io('http://localhost:8080');
+  const socket = io('http://localhost:3000');
   const messageForm = document.getElementById('send-container');
   const receivedMessage = document.getElementById('received-message');
   const messageInput = document.getElementById('message-input');
@@ -24,6 +24,7 @@
     .then((data) => {
       // Prevent form data from submitting to server
       const username = data.user[0].username;
+      console.log(data);
       socket.emit('chat-user', username)
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
