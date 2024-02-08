@@ -91,8 +91,8 @@ router.get('/messages', (req, res) => {
   getAllMessageCards()
     .then(messages => {
       getUsername(req.session.user_id)
-      .then((user)=>{
-        res.json({ messages, user})
+      .then((user) => {
+        res.json({ messages, user, roomID: req.session.roomID})
       }).catch(error => {
         console.log(error);
       });

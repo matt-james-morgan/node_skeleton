@@ -53,11 +53,12 @@ router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
+  req.session.roomID = messageID;
 
   getAllMessageCards()
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
-    res.render("message_window", { messages , user});
+    res.render("message_window", { message , user});
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
