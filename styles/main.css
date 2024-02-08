@@ -35,8 +35,27 @@ li {
 }
 
 .title-container {
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Use space-between to place items at the start and end */
+  padding-bottom: 1em;
+}
+.title-container img {
+  align-self: center;
+  padding-left: 4em;
+}
+.title-container .arrow {
+  align-self: flex-end;
+  color: #EBE4D1;
+  font-size: 30px;
+  font-weight: 900;
+  transition: all ease 1s;
+}
+.title-container .arrow:hover {
+  cursor: pointer;
+}
+.title-container .active {
+  transform: rotate(-180deg);
 }
 
 header {
