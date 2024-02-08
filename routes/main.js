@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards } = require('../db/database');
+const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -54,35 +54,19 @@ router.get('/messages/:id', (req, res) => {
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
 
-
-  getBuyerMessageCards(user)
-  .then(messages => {
-    console.log("this is messages:");
-    console.log(messages);
-    console.log("messages end");
-    const message = messages.find(message => message.id === messageID);
-    if (message) {
-      console.log("Show me the messsage ID:" , messageID );
-      console.log({message, user});
-      res.render("message_window", { message , user});
-    }
-  })
-  .catch(err => {
-    console.log("Threw the following error: ", err);
-  })
-
-  getSellerMessageCards(user)
+  getAllMessageCards()
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
-    if (message) {
-      console.log("Show me the messsage ID:" , messageID);
-      res.render("message_window", { message , user});
-    }
+    res.render("message_window", { messages , user});
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
   })
 })
+
+// router.post('/messages/1', (req, res) => {
+
+// })
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;
