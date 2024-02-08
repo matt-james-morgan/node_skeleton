@@ -82,8 +82,12 @@ const users = {};
       users[socket.id] = username
     });
 
-    socket.on('send-chat-message', message => {
-      socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
+    socket.on('send-chat-message', (message, room) => {
+      socket.to(room).emit('chat-message', { message: message, name: users[socket.id] });
+      // socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
+    })
+    socket.on('join-room', room => {
+      socket.join(room);
     })
     });
 

@@ -6,6 +6,7 @@ const { getAllItems,
         getFaveItems,
         getUserItems,
         getUsername,
+        getAllMessageCards,
         getBuyerMessageCards,
         getSellerMessageCards,
         getSentMessages,
@@ -87,26 +88,32 @@ router.get('/userName', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  if (req.session.user_id) {
-    const user = req.session.user_id;
-    const ID = {user_id: user};
-
-    getBuyerMessageCards(ID)
-      .then(messages => {
-        getUsername(user)
-        .then((user)=>{
-          res.json({ messages, user})
-        }).catch(error => {
-          console.log(error);
-        });
+  getAllMessageCards()
+    .then(messages => {
+      getUsername(req.session.user_id)
+      .then((user) => {
+        res.json({ messages, user, roomID: req.session.roomID})
       }).catch(error => {
         console.log(error);
       });
-
-  } else {
-    res.redirect('/');
-  }
+    }).catch(error => {
+      console.log(error);
+    });
 });
+
+router.get('/messageHistory', (req, res) => {
+  const user = req.session.user_id;
+  const roomID = req.session.roomID
+
+  getSentMessages(user, roomID)
+  .then(sentMessages => {
+    getUsername(user)
+    .then(username => {
+      res.json({ sentMessages, roomID, user, username });
+    }).catch(err => console.log("/messageHistory error: ", err));
+  }).catch(err => console.log("/messageHistory error: ", err));
+});
+
 
 router.get('/messageCards', (req, res) => {
 

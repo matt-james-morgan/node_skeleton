@@ -14,6 +14,7 @@ $(() => {
     return res.json();
   })
   .then(data => {
+    console.log(data);
     $('.message-feed').empty();
     data.buyerMessages.forEach(function(message) {
       const msgHTML = $(

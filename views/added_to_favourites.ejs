@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-  <title>Echo Chamber Vintage</title>
+  <title>Successfully Added</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
@@ -14,22 +15,21 @@
   <link rel="stylesheet" href="/styles/components.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/mainfeed.js"></script>
+
 </head>
 
-<body>
+<body id="container">
+
   <%- include('partials/_header') %>
   <main>
-
     <%- include('partials/_catergories') %>
 
-
-    <div class="items-container">
-      <h1 class="title">Items for Sale</h1>
-      <ul class="main-feed">
-      </ul>
-    </div>
-
+    <div>
+    <a href="/">Back</a>
+    <p>This item has been successfully added to your favourites.</p>
+    <ul class="main-feed">
+    </ul>
+  </div>
   </main>
 </body>
 

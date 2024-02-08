@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards } = require('../db/database');
+const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards, addToFavourites } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -53,29 +53,21 @@ router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
+  req.session.roomID = messageID;
 
-  getBuyerMessageCards(user)
+  getAllMessageCards()
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
-    if (message) {
-      res.render("message_window", { message , user});
-    }
-  })
-  .catch(err => {
-    console.log("Threw the following error: ", err);
-  })
-
-  getSellerMessageCards(user)
-  .then(messages => {
-    const message = messages.find(message => message.id === messageID);
-    if (message) {
-      res.render("message_window", { message , user});
-    }
+    res.render("message_window", { message , user});
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
   })
 })
+
+// router.post('/messages/1', (req, res) => {
+
+// })
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;
@@ -119,5 +111,19 @@ router.post('/', (req, res)=>{
 req.session.user_id = req.body.user_id;
 res.redirect('/');
 })
+
+// add item to favourites
+router.post("/favourites/:id", (req, res) => {
+
+  const itemID = parseInt(req.params.id);
+  const buyerID = req.session.user_id;
+  const ID = buyerID;
+  const user = {user_id: ID};
+  console.log("item, buyer", itemID, buyerID);
+
+  addToFavourites(itemID, buyerID);
+  res.render("added_to_favourites", { user });
+
+});
 
 module.exports = router;
