@@ -19,14 +19,15 @@
 // Create new messages
     fetch('/api/messages')
     .then(res =>{
-      return res.json()
+      return res.json();
     })
     .then((data) => {
       // Prevent form data from submitting to server
       console.log(data);
       const username = data.user[0].username;
-      // console.log(data);
-      socket.emit('chat-user', username)
+      const room = data.roomID;
+      socket.emit('chat-user', username);
+      socket.emit("join-room", room);
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
         const appendSentMessage = function (message) {
@@ -43,7 +44,7 @@
         // Store message text field and send it back to the server
         const message = escape(messageInput.value);
         appendSentMessage(message);
-        socket.emit('send-chat-message', message);
+        socket.emit('send-chat-message', message, room);
         messageInput.value = '';
       });
 
@@ -60,7 +61,7 @@
       }
       socket.on('chat-message', data => {
         appendReceivedMessage(data.message, data.name);
-      })
+      });
     });
   });
 
