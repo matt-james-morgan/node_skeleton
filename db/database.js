@@ -260,6 +260,7 @@ const getFaveItems = (user) => {
 
 
 
+
 module.exports = {
   getAllItems,
   getAllMessageCards,
@@ -274,5 +275,5 @@ module.exports = {
   deleteItem,
   getFaveItems,
   getUsername,
-  addToFavourites
+  addToFavourites,
 };

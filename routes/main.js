@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards, addToFavourites } = require('../db/database');
+const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards, addToFavourites, getItemFromId } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -52,8 +52,11 @@ router.get('/messages', (req, res)=>{
 router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
+
+
   const messageID = parseInt(req.params.id);
   req.session.roomID = messageID;
+
 
   getAllMessageCards()
   .then(messages => {

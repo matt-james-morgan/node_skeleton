@@ -7,6 +7,7 @@ $(() => {
     return div.innerHTML;
   };
 
+
   // get all messages that relate to a particular user
 
   fetch('/api/messageCards')
@@ -14,7 +15,7 @@ $(() => {
     return res.json();
   })
   .then(data => {
-    console.log(data);
+    
     $('.message-feed').empty();
     data.buyerMessages.forEach(function(message) {
       const msgHTML = $(
@@ -33,6 +34,8 @@ $(() => {
         `
       );
       $('.message-feed').append(msgHTML);
+      
+
     });
 
     data.sellerMessages.forEach(function(message) {
@@ -52,6 +55,7 @@ $(() => {
         `
       );
       $('.message-feed').append(msgHTML);
+      
     });
   })
   .catch(err => console.log("error loading messages: ", err));
