@@ -43,7 +43,7 @@ router.get('/', (req, res)=>{
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  getBuyerMessageCards(user)
+  getAllMessageCards(user)
   .then((messages) => {
     res.render("messages", {messages, user})
   });
@@ -52,15 +52,14 @@ router.get('/messages', (req, res)=>{
 router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
-
-
   const messageID = parseInt(req.params.id);
   req.session.roomID = messageID;
 
-
   getAllMessageCards()
   .then(messages => {
+    
     const message = messages.find(message => message.id === messageID);
+    
     res.render("message_window", { message , user});
   })
   .catch(err => {
