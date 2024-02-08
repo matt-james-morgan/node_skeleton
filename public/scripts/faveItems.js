@@ -23,7 +23,9 @@ $(document).ready(function() {
                   <a class="item-card" href="/${item.id}">
                     <div class="item-text">
                       <div class="top-card">
-                        <h3>${escape(item.title)}</h3>
+                        <h2>${escape(item.title)}</h2>
+
+
                       </div>
                       <p>$${(item.price_cents / 100).toFixed(2)}</p>
                       <p>${escape(item.description)}</p>

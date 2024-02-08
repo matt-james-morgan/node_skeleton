@@ -13,9 +13,7 @@ const { getAllItems,
         addToFavourites } = require('../db/database');
 
 
-router.get('images', (req, res) => {
 
-});
 
 // api route that gets all items_for_sale in database
 router.get('/items', (req, res) => {
@@ -122,6 +120,9 @@ router.get('/messageCards', (req, res) => {
         .then(sellerMessages => {
           res.json({ buyerMessages, sellerMessages })
             })
+            .catch(error => {
+              console.log(error);
+            });
       })
       .catch(error => {
         console.log(error);

@@ -1,0 +1,14 @@
+main {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#filter-form {
+  width: 50%;
+  gap: 10px;
+}
+
+button {
+  margin-top: 20px;
+}/*# sourceMappingURL=new-item.css.map */
