@@ -5,7 +5,7 @@ $ (() => {
     return res.json();
   })
   .then((data) => {
-    const prependSentMessage = function (message) {
+    const appendSentMessage = function (message) {
       const username = data.username[0].username;
       const sendMessage = `
       <div id="sent-message" class="sent-message">
@@ -15,10 +15,10 @@ $ (() => {
       </div>
     </div>
       `;
-      $(".message-container").prepend(sendMessage);
+      $(".message-container").append(sendMessage);
     };
 
-    const prependReceivedMessage = function (message, user) {
+    const appendReceivedMessage = function (message, user) {
       const messageElement = `
       <div id="received-message" class="received-message">
       <div class="sender"><h3>${user}</h3>
@@ -34,9 +34,9 @@ $ (() => {
     for (let myMessage in data.sentMessages) {
       if (data.sentMessages[myMessage].sender_id === parseInt(data.user)) {
         console.log(data.sentMessages[myMessage].sender_id)
-        prependSentMessage(data.sentMessages[myMessage].message_content)
+        appendSentMessage(data.sentMessages[myMessage].message_content)
       } else if (data.sentMessages[myMessage].receiver_id === parseInt(data.user)) {
-        prependReceivedMessage(data.sentMessages[myMessage].message_content, data.sentMessages[myMessage].username);
+        appendReceivedMessage(data.sentMessages[myMessage].message_content, data.sentMessages[myMessage].username);
       }
     }
 
