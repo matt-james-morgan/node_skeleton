@@ -14,8 +14,8 @@ $(document).ready(function() {
         })
         .then(data => {
           $('.main-feed').empty();
-          
-          
+
+
           data.items.forEach(function(item) {
 
               const itemHTML = $(
@@ -24,8 +24,6 @@ $(document).ready(function() {
                     <div class="item-text">
                       <div class="top-card">
                         <h3>${escape(item.title)}</h3>
-                        
-                        <p class="heart">♡</p>
                       </div>
                       <p>$${(item.price_cents / 100).toFixed(2)}</p>
                       <p>${escape(item.description)}</p>
@@ -35,14 +33,14 @@ $(document).ready(function() {
                 </li>`
               );
               $('.main-feed').append(itemHTML);
-            
+
           });
-          
+
         })
         .catch(err => {
           console.log('Error loading items:', err);
         });
-    
+
       }
       displayItems();
 })
