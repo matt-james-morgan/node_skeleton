@@ -12,20 +12,16 @@
     };
 
 
-// Message history
-
-
-
 // Create new messages
     fetch('/api/messages')
-    .then(res =>{
+    .then(res => {
       return res.json();
     })
     .then((data) => {
       // Prevent form data from submitting to server
-      console.log(data);
       const username = data.user[0].username;
       const room = data.roomID;
+      // console.log(data);
       socket.emit('chat-user', username);
       socket.emit("join-room", room);
       messageForm.addEventListener('submit', e => {

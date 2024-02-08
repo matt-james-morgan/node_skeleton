@@ -100,9 +100,16 @@ router.get('/messages', (req, res) => {
       console.log(error);
     });
 });
-//   } else {
-//     res.redirect('/');
-//   }
+
+router.get('/messageHistory', (req, res) => {
+  const user = req.session.user_id;
+  const roomID = req.session.roomID
+
+  getSentMessages(user)
+  .then(sentMessages => {
+      res.json({ sentMessages, roomID });
+  })
+});
 
 
 router.get('/messageCards', (req, res) => {

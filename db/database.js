@@ -222,43 +222,26 @@ const getSellerMessageCards = function (options, limit = 10) {
 
 // User message history
 
-const getSentMessages = function (options) {
-  const queryParams = [];
-
-  let queryString = `
+const getSentMessages = function (user) {
+  return pool.query(`
   SELECT * FROM chat_history
-  `;
-  if (options.user_id) {
-    queryParams.push(options.user_id)
-    queryString += `
-    WHERE sender_id = $${queryParams.length};
-    `
-  }
-
-  return pool.query(queryString, queryParams)
+  JOIN users ON user.id = sender_id
+  WHERE sender_id = $1 OR receiver_id = $1
+  `, [user])
     .then((res) => res.rows)
     .catch((err) => console.log("Error message: ", err));
 
   };
 //
-const getReceivedMessages = function (options) {
-  const queryParams = [];
+// const getReceivedMessages = function (user) {
+//   return pool.query(`
+//   SELECT * FROM chat_history
+//   WHERE receiver_id = $1;
+//   `, [user])
+//     .then((res) => res.rows)
+//     .catch((err) => console.log("Error message: ", err));
 
-  let queryString = `
-  SELECT * FROM chat_history
-  `;
-  if (options.user_id) {
-    queryParams.push(options.user_id)
-    queryString += `
-    WHERE receiver_id = $${queryParams.length};
-    `
-  }
-
-  return pool.query(queryString, queryParams)
-    .then((res) => res.rows)
-    .catch((err) => console.log("Error message: ", err));
-
-  };
+//   };
 //
 
 
@@ -281,7 +264,7 @@ module.exports = {
   getBuyerMessageCards,
   getSellerMessageCards,
   getSentMessages,
-  getReceivedMessages,
+  // getReceivedMessages,
   addItem,
   getUserItems,
   changeSoldStatus,
