@@ -1,6 +1,6 @@
 -- Drop and recreate MESSAGES table
 
-DROP TABLE IF EXISTS user_messages CASCADE;
+DROP TABLE IF EXISTS chat_history CASCADE;
 
 CREATE TABLE chat_history (
   id SERIAL PRIMARY KEY NOT NULL,
