@@ -20,7 +20,7 @@ $(document).ready(function() {
 
               const itemHTML = $(
                 `<li>
-                  <a class="item-card" href="/${item.id}">
+                  <a class="item-card" href="/${item.item_id}">
                     <div class="item-text">
                       <div class="top-card">
                         <h2>${escape(item.title)}</h2>

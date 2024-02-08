@@ -243,7 +243,11 @@ const getReceivedMessages = function (options) {
 
 
 const getFaveItems = (user) => {
-  return pool.query('SELECT * FROM items_for_sale JOIN favourited_items ON items_for_sale.id = favourited_items.item_id WHERE favourited_items.buyer_id = $1 ;', [user])
+  return pool.query(`
+  SELECT * FROM items_for_sale
+  JOIN favourited_items ON items_for_sale.id = favourited_items.item_id
+  WHERE favourited_items.buyer_id = $1;
+  `, [user])
     .then(data => {
       return data.rows;
     });
