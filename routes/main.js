@@ -54,10 +54,16 @@ router.get('/messages/:id', (req, res) => {
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
 
+
   getBuyerMessageCards(user)
   .then(messages => {
+    console.log("this is messages:");
+    console.log(messages);
+    console.log("messages end");
     const message = messages.find(message => message.id === messageID);
     if (message) {
+      console.log("Show me the messsage ID:" , messageID );
+      console.log({message, user});
       res.render("message_window", { message , user});
     }
   })
@@ -69,6 +75,7 @@ router.get('/messages/:id', (req, res) => {
   .then(messages => {
     const message = messages.find(message => message.id === messageID);
     if (message) {
+      console.log("Show me the messsage ID:" , messageID);
       res.render("message_window", { message , user});
     }
   })

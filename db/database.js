@@ -145,6 +145,26 @@ const deleteItem = function(itemID) {
 
 // User Message Cards
 
+const getAllMessageCards = function (options, limit = 10) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT * FROM user_messages
+  JOIN items_for_sale ON items_for_sale.id = item_id
+  JOIN users ON users.id = seller_id
+  `;
+
+  queryParams.push(limit);
+  queryString += `
+  LIMIT $${queryParams.length};
+  `;
+
+  return pool.query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((err) => console.log("Error message: ", err));
+
+};
+
 const getBuyerMessageCards = function (options, limit = 10) {
   const queryParams = [];
 
@@ -253,6 +273,7 @@ const getFaveItems = (user) => {
 
 module.exports = {
   getAllItems,
+  getAllMessageCards,
   getBuyerMessageCards,
   getSellerMessageCards,
   getSentMessages,

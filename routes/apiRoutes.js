@@ -6,6 +6,7 @@ const { getAllItems,
         getFaveItems,
         getUserItems,
         getUsername,
+        getAllMessageCards,
         getBuyerMessageCards,
         getSellerMessageCards,
         getSentMessages,
@@ -92,12 +93,15 @@ router.get('/messages', (req, res) => {
   if (req.session.user_id) {
     const user = req.session.user_id;
     const ID = {user_id: user};
+    const roomID = req.params.id;
 
-    getBuyerMessageCards(ID)
+    getAllMessageCards(ID)
       .then(messages => {
         getUsername(user)
         .then((user)=>{
-          res.json({ messages, user})
+          console.log( {messages, user });
+          console.log(roomID);
+          res.json({ messages, user });
         }).catch(error => {
           console.log(error);
         });

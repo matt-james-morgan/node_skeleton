@@ -23,8 +23,9 @@
     })
     .then((data) => {
       // Prevent form data from submitting to server
-      const username = data.user[0].username;
       console.log(data);
+      const username = data.user[0].username;
+      // console.log(data);
       socket.emit('chat-user', username)
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
