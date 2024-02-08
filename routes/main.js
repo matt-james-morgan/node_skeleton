@@ -38,9 +38,18 @@ router.get('/', (req, res)=>{
     res.render("index", { items, user });
   })
 })
-console.log("running in main")
+
+// Find all messages associated with the logged in user
+router.get('/messages', (req, res)=>{
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  getBuyerMessageCards(user)
+  .then((messages) => {
+    res.render("messages", {messages, user})
+  });
+});
+
 router.get('/messages/:id', (req, res) => {
-  console.log("running in messages router")
   const ID = req.session.user_id;
   const user = {user_id: ID}
   const messageID = parseInt(req.params.id);
@@ -55,23 +64,9 @@ router.get('/messages/:id', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
 // router.post('/messages/1', (req, res) => {
 
 // })
-=======
-// Find all messages associated with the logged in user
-router.get('/messages', (req, res)=>{
-  const ID = req.session.user_id;
-  const user = {user_id: ID}
-  getBuyerMessageCards(user)
-  .then((messages) => {
-    res.render("messages", {messages, user})
-  });
-});
-
-
->>>>>>> 74c2147e6127b76d31985de96ec3a551f5b2e224
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;
