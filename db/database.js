@@ -237,10 +237,11 @@ const getSentMessages = function (user, roomID) {
 
   // Create new message in database as buyer
   const newMessage = function (user, item) {
+    console.log(user, item);
     return pool.query(`
     INSERT INTO user_messages (buyer_id, item_id)
     VALUES ($1, $2);
-    `)
+    `,[user.id, item.id])
   };
 
 
