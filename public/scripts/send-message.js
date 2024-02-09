@@ -1,5 +1,5 @@
   const socket = io('http://localhost:3000');
-  const { newMessage } = require('../db/database');
+
 
   const messageForm = document.getElementById('send-container');
   const receivedMessage = document.getElementById('received-message');
@@ -23,10 +23,15 @@
     .then((data) => {
       // Prevent form data from submitting to server
       const username = data.user[0].username;
-      const room = data.roomID;
-      // console.log(data);
+      const room = data.roomID; // emit
+      const userID = data.userID; // emit
+      const buyerID = data.messages[0].buyer_id; // emit
+      const sellerID = data.sentMessages[0].receiver_id; //emit
+      // console.log("This is from send-message script: ", data);
+      // console.log("This is from send-message script: ", userID);
       socket.emit('chat-user', username);
       socket.emit("join-room", room);
+
       messageForm.addEventListener('submit', e => {
         e.preventDefault();
         const appendSentMessage = function (message) {
@@ -45,6 +50,12 @@
         appendSentMessage(message);
         socket.emit('send-chat-message', message, room);
         messageInput.value = '';
+        socket.emit('sender-id', userID);
+      if (userID !== buyerID) {
+        socket.emit("receiver-id", buyerID);
+      } else if (userID === buyerID) {
+        socket.emit("receiver-id", sellerID);
+      }
       });
 
       const appendReceivedMessage = function (message, user) {

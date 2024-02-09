@@ -235,12 +235,23 @@ const getSentMessages = function (user, roomID) {
 
   };
 
-  // Create new message in database as buyer
-  const newMessage = function (user, item) {
+  // Create new message card for seller in database as buyer
+  const newMessageCard = function (user, item) {
     return pool.query(`
     INSERT INTO user_messages (buyer_id, item_id)
     VALUES ($1, $2);
-    `)
+    `, [user, item])
+    .then((res) => res.rows)
+    .catch((err) => console.log("SQL errpr message: ", err));
+  };
+  // Create new message reply from either seller or buyer
+  const newMessage = function (sender, receiver, item, content) {
+    return pool.query(`
+    INSERT INTO chat_history (sender_id, receiver_id, item_id, message_content)
+    VALUES ($1, $2, $3, $4);
+    `, [sender, receiver, item, content])
+    .then((res) => res.rows)
+    .catch((err) => console.log("SQL errpr message: ", err));
   };
 
 

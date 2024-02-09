@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems,  getFaveItems,  getAllMessageCards, addToFavourites } = require('../db/database');
+const { getAllItems,  getFaveItems,  getAllMessageCards, addToFavourites, newMessage } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -66,6 +66,12 @@ router.get('/messages/:id', (req, res) => {
     console.log("Threw the following error: ", err);
   })
 })
+
+router.post('messages/:id', (req, res) => {
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
+  res.send(console.log("Hello World!"));
+});
 
 router.get('/messages/new-message/:id', (req, res) => {
   const ID = req.session.user_id;

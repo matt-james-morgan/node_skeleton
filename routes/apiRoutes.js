@@ -88,11 +88,18 @@ router.get('/userName', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
+  const userID = parseInt(req.session.user_id);
+  const roomID = req.session.roomID;
   getAllMessageCards()
     .then(messages => {
       getUsername(req.session.user_id)
       .then((user) => {
-        res.json({ messages, user, roomID: req.session.roomID})
+        getSentMessages(userID, roomID)
+        .then(sentMessages => {
+          res.json({ messages, user, roomID: req.session.roomID, userID, sentMessages})
+        }).catch(error => {
+          console.log(error)
+        })
       }).catch(error => {
         console.log(error);
       });

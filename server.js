@@ -1,6 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
-const { getAllItems } = require("./db/database.js");
+const { newMessage } = require("./db/database.js");
 
 // Web server config
 
@@ -77,17 +77,25 @@ server.listen(PORT, () => {
 //Socket IO user/messaging information
 
 const users = {};
+const dbEntry = {};
   io.on('connection', (socket) => {
     socket.on('chat-user', username => {
       users[socket.id] = username
     });
-
     socket.on('send-chat-message', (message, room) => {
+      dbEntry.messageContent = message;
       socket.to(room).emit('chat-message', { message: message, name: users[socket.id] });
-      // socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
     })
     socket.on('join-room', room => {
+      dbEntry.itemID = room;
       socket.join(room);
     })
-    });
+    socket.on('sender-id', senderID => {
+      dbEntry.senderID = senderID;
+    })
+    socket.on('receiver-id', receiverID => {
+      dbEntry.receiverID = receiverID;
+      newMessage(dbEntry.senderID, dbEntry.receiverID, dbEntry.itemID, dbEntry.messageContent);
+    })
+  });
 
