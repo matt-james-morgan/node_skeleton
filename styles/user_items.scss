@@ -2,6 +2,10 @@
 .item-card {
   max-height: 240px;
   flex-direction: row;
+  width: 100%;
+  > div {
+    width: 100%;
+  }
   .top-of-card {
     display: flex;
     justify-content: space-between;
