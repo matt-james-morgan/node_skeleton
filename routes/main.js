@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards } = require('../db/database');
+const { getAllItems, getBuyerMessageCards, getFaveItems, getSellerMessageCards, getAllMessageCards, addToFavourites } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -111,5 +111,19 @@ router.post('/', (req, res)=>{
 req.session.user_id = req.body.user_id;
 res.redirect('/');
 })
+
+// add item to favourites
+router.post("/favourites/:id", (req, res) => {
+
+  const itemID = parseInt(req.params.id);
+  const buyerID = req.session.user_id;
+  const ID = buyerID;
+  const user = {user_id: ID};
+  console.log("item, buyer", itemID, buyerID);
+
+  addToFavourites(itemID, buyerID);
+  res.render("added_to_favourites", { user });
+
+});
 
 module.exports = router;
