@@ -21,19 +21,19 @@
       return res.json();
     })
     .then((data) => {
-      // Prevent form data from submitting to server
       const username = data.user[0].username;
       const room = data.roomID; // emit
       const userID = data.userID; // emit
       const buyerID = data.messages[0].buyer_id; // emit
       const sellerID = data.sentMessages[0].receiver_id; //emit
-      // console.log("This is from send-message script: ", data);
-      // console.log("This is from send-message script: ", userID);
+
       socket.emit('chat-user', username);
       socket.emit("join-room", room);
 
       messageForm.addEventListener('submit', e => {
+        // Prevent form data from submitting to server to avoid page refresh
         e.preventDefault();
+
         const appendSentMessage = function (message) {
           const sendMessage = `
           <div id="sent-message" class="sent-message">
@@ -45,12 +45,13 @@
           `;
           $(".message-container").append(sendMessage);
         };
+
         // Store message text field and send it back to the server
         const message = escape(messageInput.value);
         appendSentMessage(message);
         socket.emit('send-chat-message', message, room);
-        messageInput.value = '';
         socket.emit('sender-id', userID);
+        messageInput.value = '';
       if (userID !== buyerID) {
         socket.emit("receiver-id", buyerID);
       } else if (userID === buyerID) {
