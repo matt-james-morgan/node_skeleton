@@ -105,10 +105,13 @@ router.get('/messageHistory', (req, res) => {
   const user = req.session.user_id;
   const roomID = req.session.roomID
 
-  getSentMessages(user)
+  getSentMessages(user, roomID)
   .then(sentMessages => {
-      res.json({ sentMessages, roomID });
-  })
+    getUsername(user)
+    .then(username => {
+      res.json({ sentMessages, roomID, user, username });
+    }).catch(err => console.log("/messageHistory error: ", err));
+  }).catch(err => console.log("/messageHistory error: ", err));
 });
 
 
