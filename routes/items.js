@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getAllItems, addItem, changeSoldStatus, getUserID, deleteItem } = require("../db/database");
+const { getAllItems, addItem, changeSoldStatus, getUserID, deleteItem, addToFavourites } = require("../db/database");
 const { timeAgo, sortByMostRecent } = require("../utils/helpers");
 const cookieSession = require('cookie-session');
 
