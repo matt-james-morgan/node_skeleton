@@ -40,4 +40,19 @@ li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: #26577C solid 5px;
+  height: auto;
+  width: -moz-fit-content;
+  width: fit-content;
+  block-size: -moz-fit-content;
+  block-size: fit-content;
+  margin-top: 20px;
+  width: 50%;
+  padding-bottom: 20px;
 }/*# sourceMappingURL=components.css.map */

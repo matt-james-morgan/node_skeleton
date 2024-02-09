@@ -52,6 +52,7 @@ router.get('/messages', (req, res)=>{
 router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
+  
   const messageID = parseInt(req.params.id);
   req.session.roomID = messageID;
 
@@ -97,7 +98,8 @@ router.get('/favourites', (req, res)=>{
 
 router.get('/:id', (req, res) => {
   // get id of item that was clicked on. Change ID from string to integer.
-  console.log("/:id route");
+  const ID = req.session.user_id;
+  const user = {user_id: ID}
   const itemID = parseInt(req.params.id, 10);
 
   getAllItems()
@@ -107,8 +109,8 @@ router.get('/:id', (req, res) => {
 
       if (item) {
         const timeSincePosted = timeAgo(item.created_at);
-        console.log("TIMEAGO:", timeSincePosted);
-        res.render("view_item", { item, timeSincePosted });
+        
+        res.render("view_item", { item, timeSincePosted, user });
       } else {
         res.status(404).send('Item not found')
       }
