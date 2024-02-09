@@ -66,14 +66,11 @@ router.post("/", (req, res) => {
 router.get("/:id/sold", (req, res) => {
 
   const itemID = req.params.id;
-  const username = req.session.user_id;
-  getUserID(username)
-    .then((userID) => {
-      changeSoldStatus(itemID);
-      res.redirect(`/users/${userID}/items`);
-      return;
-    })
-    .catch((err) => console.log(err));
+  const userID = req.session.user_id;
+    changeSoldStatus(itemID);
+    console.log("userID:", userID);
+    res.redirect(`/users/${userID}/items`);
+    return;
 
 });
 
@@ -81,14 +78,11 @@ router.get("/:id/sold", (req, res) => {
 router.get("/:id/delete", (req, res) => {
 
   const itemID = req.params.id;
-  const username = req.session.user_id;
-  getUserID(username)
-    .then((userID) => {
-      deleteItem(itemID);
-      res.redirect(`/users/${userID}/items`);
-      return;
-    })
-    .catch((err) => console.log(err));
+  const userID = req.session.user_id;
+
+  deleteItem(itemID);
+  res.redirect(`/users/${userID}/items`);
+  return;
 
 });
 
