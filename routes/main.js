@@ -43,7 +43,7 @@ router.get('/', (req, res)=>{
 router.get('/messages', (req, res)=>{
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  getBuyerMessageCards(user)
+  getAllMessageCards(user)
   .then((messages) => {
     res.render("messages", {messages, user})
   });
@@ -57,7 +57,9 @@ router.get('/messages/:id', (req, res) => {
 
   getAllMessageCards()
   .then(messages => {
+    console.log("This is from main.js: ", messages);
     const message = messages.find(message => message.id === messageID);
+    console.log("This is in message cards, main.js: " , message);
     res.render("message_window", { message , user});
   })
   .catch(err => {

@@ -33,7 +33,6 @@ $ (() => {
     console.log(data);
     for (let myMessage in data.sentMessages) {
       if (data.sentMessages[myMessage].sender_id === parseInt(data.user)) {
-        console.log(data.sentMessages[myMessage].sender_id)
         appendSentMessage(data.sentMessages[myMessage].message_content)
       } else if (data.sentMessages[myMessage].receiver_id === parseInt(data.user)) {
         appendReceivedMessage(data.sentMessages[myMessage].message_content, data.sentMessages[myMessage].username);
