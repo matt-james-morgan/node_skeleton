@@ -21,17 +21,17 @@
 <body>
   <%- include('partials/_header') %>
   <main>
-    
-    
-    
 
-    
 
-    
+
+
+
+
+
 
     <div class="item-info">
       <h1><%= item.title %></h1>
-      
+
         <img src="<%= item.image_url %>" alt="<%= item.title %>">
       <form action="/favourites/<%= item.id %>" method="POST">
         <input type="hidden" name="id">
@@ -39,15 +39,15 @@
             ♡
         </button>
        </form>
-     
-      
+
+
       <%= timeSincePosted %>
       <% if (item.sold){ %>
         <p>SOLD</p>
       <% } %>
       <p>$<%= item.price_cents / 100 %></p>
       <p><%= item.description %></p>
-      <button class='button-54' href="/messages/<%= item.id %>">Message Seller</button>
+      <a class='button-54' href="/messages/<%= item.id %>">Message Seller</a>
 
     </div>
 
