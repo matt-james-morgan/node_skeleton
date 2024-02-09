@@ -234,17 +234,14 @@ const getSentMessages = function (user, roomID) {
     .catch((err) => console.log("SQL Error message: ", err));
 
   };
-//
-// const getReceivedMessages = function (user) {
-//   return pool.query(`
-//   SELECT * FROM chat_history
-//   WHERE receiver_id = $1;
-//   `, [user])
-//     .then((res) => res.rows)
-//     .catch((err) => console.log("Error message: ", err));
 
-//   };
-//
+  // Create new message in database as buyer
+  const newMessage = function (user, item) {
+    return pool.query(`
+    INSERT INTO user_messages (buyer_id, item_id)
+    VALUES ($1, $2);
+    `)
+  };
 
 
 const getFaveItems = (user) => {
@@ -267,7 +264,7 @@ module.exports = {
   getBuyerMessageCards,
   getSellerMessageCards,
   getSentMessages,
-  // getReceivedMessages,
+  newMessage,
   addItem,
   getUserItems,
   changeSoldStatus,

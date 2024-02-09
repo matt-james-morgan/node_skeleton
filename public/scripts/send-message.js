@@ -1,8 +1,11 @@
   const socket = io('http://localhost:3000');
+  const { newMessage } = require('../db/database');
+
   const messageForm = document.getElementById('send-container');
   const receivedMessage = document.getElementById('received-message');
   const messageInput = document.getElementById('message-input');
   const outgoingMessage = document.getElementById('sent-message');
+
   $(() => {
 
     const escape = function(str) {
