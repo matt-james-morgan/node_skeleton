@@ -1,0 +1,18 @@
+
+.item-card {
+  max-height: 240px;
+  flex-direction: row;
+  .top-of-card {
+    display: flex;
+    justify-content: space-between;
+    .item-updates {
+      a {
+        padding: 10px;
+      }
+    }
+  }
+  a {
+    height: auto;
+  }
+}
+

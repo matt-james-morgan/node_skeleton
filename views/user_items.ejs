@@ -53,7 +53,7 @@
 </head>
 
 <body>
-
+  <%- include('partials/_header') %>
   <main>
     <div class="items-container">
       <h1>Items You Have For Sale</h1>
@@ -61,15 +61,24 @@
       <ul class="main-feed">
         <% for (let item of items) { %>
           <li class="item-card">
-            <h3><%= item.title %></h3>
-            <% if (item.sold) { %>
-              <p>SOLD</p>
-            <% } %>
-            <p><%= item.price_cents %></p>
-            <p><%= item.description %></p>
             <img src="<%= item.image_url %>" alt="<%= item.title %>">
-            <a href="/items/<%= item.id %>/sold">Mark as Sold</a>
-            <a href="/items/<%= item.id %>/delete">Delete Listing</a>
+            <div>
+              <div class="top-of-card">
+                <h3><%= item.title %></h3>
+                <% if (item.sold) { %>
+                  <p>SOLD</p>
+                <% } %>
+                <div class="item-updates">
+                  <a href="/items/<%= item.id %>/sold">Mark as Sold</a>
+                  <a href="/items/<%= item.id %>/delete">Delete Listing</a>
+                </div>
+              </div>
+              <div>
+                <p><%= item.price_cents %></p>
+                <p><%= item.description %></p>
+              </div>
+            </div>
+
           </li>
         <% } %>
       </ul>
