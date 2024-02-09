@@ -17,6 +17,9 @@ li {
 }
 
 .item-card {
+  h2 {
+    color: #26577C;
+  }
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -47,3 +50,17 @@ li {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.item-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: $accent1 solid 5px;
+  height: auto;
+  width: fit-content;
+  block-size: fit-content;  
+  margin-top: 20px;
+  width: 50%;
+  padding-bottom: 20px;
+}
+

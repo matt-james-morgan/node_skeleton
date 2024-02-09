@@ -21,15 +21,16 @@ $(() => {
       const msgHTML = $(
         `
         <li>
-        <a class="item-card" href ="/messages/${message.id}"
+        <a class="item-card" href ="/messages/${message.id}">
           <div class="item-text">
-            <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
-            <div class="message-card-info">
-              <h3>Item Name: ${escape(message.title)}</h3>
-              <p>Item Description: ${escape(message.description)}</p>
-              <p>Buyer: ${escape(message.name)} (<i>Me</i>)</p>
+            <div class="top-card">
+                <h3>Item Name: ${escape(message.title)}</h3>
+                </div>
+                <p>Item Description: ${escape(message.description)}</p>
+                <p>Buyer: ${escape(message.name)} (<i>Me</i>)</p>
             </div>
-          </div>
+          <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
+          </a>
         </li>
         `
       );
@@ -42,15 +43,16 @@ $(() => {
       const msgHTML = $(
         `
         <li>
-        <a class = "message" href ="/messages/${message.id}"
-          <div class="message-card">
-            <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
-            <div class="message-card-info">
+        <a class = "item-card" href ="/messages/${message.id}">
+          <div class="item-text">
+            <div class="top-card">
               <h3>Item Name: ${escape(message.title)}</h3>
+              </div>
               <p>Item Description: ${escape(message.description)}</p>
               <p>Seller: ${escape(message.name)}</p>
-            </div>
           </div>
+          <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
+        </a>
         </li>
         `
       );

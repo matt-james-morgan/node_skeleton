@@ -20,14 +20,23 @@
 <body>
   <%- include('partials/_header') %>
   <main>
-<h1> <%= message.title%>  </h1>
-    <div class="message-container">
-      &nbsp;
-    </div>
+<div class="message-window-container">
+  <div>
+
+    <h1> <%= message.title%>  </h1>
+        <div class="message-container">
+          &nbsp;
+        </div>
+
+  </div>
+
+<div id="send-container">
     <form action="" id="send-container">
-      <input type="text" id="message-input">
-      <button type="submit" class="send-button">Send</button>
+      <textarea type="text" id="message-input"></textarea>
+      <button type="submit" class="button-54">Send</button>
     </form>
+  </div>
+</div>
   </main>
 
 </body>
