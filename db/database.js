@@ -71,6 +71,19 @@ const getAllItems = function(options = {} | null, limit = 10) {
 
 };
 
+const getItemID = function (id) {
+  return pool.query(`
+  SELECT id FROM items_for_sale
+  WHERE id = $1
+  `, [id])
+  .then((res) => {
+    return res.rows;
+  })
+  .catch((err) => {
+    console.log("SQL error message: " , err);
+  })
+}
+
 // add new item_for_sale to database
 const addItem = function(title, descr, price, imgURL) {
   const priceCents = price * 100;
@@ -277,6 +290,7 @@ module.exports = {
   getSentMessages,
   newMessage,
   addItem,
+  getItemID,
   getUserItems,
   changeSoldStatus,
   getUserID,
