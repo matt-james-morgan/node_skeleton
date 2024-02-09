@@ -31,7 +31,7 @@
           <div id="sent-message" class="sent-message">
           <div class="sender"><h3>${username}:</h3>
           </div>
-          <div class="message-contents"><p>${message}</p>
+          <div class="message-contents"><p class="comment">${message}</p>
           </div>
         </div>
           `;
@@ -49,7 +49,7 @@
         <div id="received-message" class="received-message">
         <div class="sender"><h3>${user}</h3>
         </div>
-        <div class="message-contents"><p>${message}</p>
+        <div class="message-contents"><p class="comment">${message}</p>
         </div>
       </div>
       `;
