@@ -36,6 +36,19 @@ const getUsername = function(id) {
   })
 }
 
+const getSellerID = function(id) {
+  return pool.query(`
+  SELECT seller_id FROM items_for_sale
+  WHERE items_for_sale.id = $1
+  `, [id])
+  .then((res) => {
+    return res.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 // function that returns a promise that contains all items for sale listed in the database
 const getAllItems = function(options = {} | null, limit = 10) {
 
@@ -257,6 +270,7 @@ const getSentMessages = function (user, roomID) {
     .then((res) => res.rows)
     .catch((err) => console.log("SQL errpr message: ", err));
   };
+
   // Create new message reply from either seller or buyer
   const newMessage = function (sender, receiver, item, content) {
     return pool.query(`
@@ -288,7 +302,9 @@ module.exports = {
   getBuyerMessageCards,
   getSellerMessageCards,
   getSentMessages,
+  getSellerID,
   newMessage,
+  newMessageCard,
   addItem,
   getItemID,
   getUserItems,

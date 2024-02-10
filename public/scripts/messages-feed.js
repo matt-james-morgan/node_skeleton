@@ -15,13 +15,13 @@ $(() => {
     return res.json();
   })
   .then(data => {
-    
+    console.log(data);
     $('.message-feed').empty();
     data.buyerMessages.forEach(function(message) {
       const msgHTML = $(
         `
         <li>
-        <a class="item-card" href ="/messages/${message.id}">
+        <a class="item-card" href ="/messages/${message.item_id}">
           <div class="item-text">
             <div class="top-card">
                 <h3>Item Name: ${escape(message.title)}</h3>
@@ -35,7 +35,7 @@ $(() => {
         `
       );
       $('.message-feed').append(msgHTML);
-      
+
 
     });
 
@@ -43,7 +43,7 @@ $(() => {
       const msgHTML = $(
         `
         <li>
-        <a class = "item-card" href ="/messages/${message.id}">
+        <a class = "item-card" href ="/messages/${message.item_id}">
           <div class="item-text">
             <div class="top-card">
               <h3>Item Name: ${escape(message.title)}</h3>
@@ -57,7 +57,7 @@ $(() => {
         `
       );
       $('.message-feed').append(msgHTML);
-      
+
     });
   })
   .catch(err => console.log("error loading messages: ", err));

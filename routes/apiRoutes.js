@@ -10,7 +10,7 @@ const { getAllItems,
         getBuyerMessageCards,
         getSellerMessageCards,
         getSentMessages,
-        getReceivedMessages,
+        getSellerID,
         addToFavourites } = require('../db/database');
 
 
@@ -96,7 +96,12 @@ router.get('/messages', (req, res) => {
       .then((user) => {
         getSentMessages(userID, roomID)
         .then(sentMessages => {
-          res.json({ messages, user, roomID: req.session.roomID, userID, sentMessages})
+          getSellerID(roomID)
+          .then(sellerID => {
+            res.json({ messages, user, roomID: req.session.roomID, userID, sentMessages, sellerID})
+          }).catch(error => {
+            console.log(error);
+          })
         }).catch(error => {
           console.log(error)
         })

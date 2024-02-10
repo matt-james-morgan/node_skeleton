@@ -15,20 +15,48 @@
     };
 
 
-// Create new messages
+    // Create new messages
     fetch('/api/messages')
     .then(res => {
       return res.json();
     })
     .then((data) => {
-      const username = data.user[0].username;
-      const room = data.roomID; // emit
-      const userID = data.userID; // emit
-      const buyerID = data.messages[0].buyer_id; // emit
-      const sellerID = data.sentMessages[0].receiver_id; //emit
+      console.log(data);
+      if (data.sentMessages.length === 0) {
+        // Path to create ne message card and chat history
 
-      socket.emit('chat-user', username);
-      socket.emit("join-room", room);
+          const username = data.user[0].username;
+          const room = data.roomID; // emit
+          const userID = data.userID; // emit
+          const sellerID = data.sellerID[0].seller_id; //emit
+          const receiverID = sellerID
+          socket.emit('chat-user', username);
+          socket.emit("join-room", room);
+
+          messageForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const message = escape(messageInput.value);
+
+            socket.emit('send-chat-message', message, room);
+            socket.emit("receiver-id", receiverID);
+            socket.emit('sender-id', userID);
+            socket.emit("seller-id", sellerID);
+
+            messageInput.value = '';
+          window.location.href = "http://localhost:3000/messages/"
+        });
+
+      } else {
+        // Path to create chat history
+        const username = data.user[0].username;
+        const room = data.roomID; // emit
+        const userID = data.userID; // emit
+        const buyerID = data.messages[0].buyer_id; // emit
+        const sellerID = data.sellerID[0].sellerID; // emit
+        socket.emit('chat-user', username);
+        socket.emit("join-room", room);
+
 
       messageForm.addEventListener('submit', e => {
         // Prevent form data from submitting to server to avoid page refresh
@@ -73,6 +101,8 @@
       socket.on('chat-message', data => {
         appendReceivedMessage(data.message, data.name);
       });
+      }
+
     });
   });
 
