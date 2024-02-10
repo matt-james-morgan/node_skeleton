@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/components.css" />
   <link rel="stylesheet" href="/styles/message_window.css" />
-  <title>Chat with buyer</title>
+
+  <title>Chat with Seller</title>
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
@@ -19,8 +20,8 @@
 </head>
 <body>
   <%- include('partials/_header') %>
-  <main>
-<h1> Message Seller  </h1>
+  <!-- <main>
+<h1> Message Seller </h1>
     <div class="message-container">
       &nbsp;
     </div>
@@ -28,7 +29,25 @@
       <input type="text" id="message-input">
       <button type="submit" class="send-button">Send</button>
     </form>
-  </main>
+  </main> -->
+  <main>
+    <div class="message-window-container">
+      <div>
 
+        <h1> Message Seller </h1>
+            <div class="message-container">
+              &nbsp;
+            </div>
+
+      </div>
+
+    <div id="send-container">
+        <form action="" id="send-container">
+          <textarea type="text" id="message-input"></textarea>
+          <button type="submit" class="button-54">Send</button>
+        </form>
+      </div>
+    </div>
+      </main>
 </body>
 </html>
