@@ -10,7 +10,7 @@ const router  = express.Router();
 const userQueries = require('../db/queries/getItems.js');
 const messageQueries = require('../db/queries/getMessages.js');
 const cookieSession = require('cookie-session');
-const { getAllItems,  getFaveItems,  getAllMessageCards, addToFavourites, newMessage } = require('../db/database');
+const { getAllItems,  getFaveItems,  getAllMessageCards, addToFavourites, getItemID } = require('../db/database');
 const { timeAgo } = require('../utils/helpers.js');
 
 
@@ -52,45 +52,34 @@ router.get('/messages', (req, res)=>{
 router.get('/messages/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  
+
   const messageID = parseInt(req.params.id);
   req.session.roomID = messageID;
 
-  getAllMessageCards()
-  .then(messages => {
-
-    const message = messages.find(message => message.id === messageID);
-
-    res.render("message_window", { message , user});
+  getAllItems()
+  .then(items => {
+    const item = items.find(item => item.id === messageID);
+    console.log("this is item, ", item)
+    res.render("message_window", { item , user});
   })
   .catch(err => {
     console.log("Threw the following error: ", err);
   })
-})
-
-router.post('messages/:id', (req, res) => {
-  const ID = req.session.user_id;
-  const user = {user_id: ID}
-  res.send(console.log("Hello World!"));
 });
 
 router.get('/messages/new-message/:id', (req, res) => {
   const ID = req.session.user_id;
   const user = {user_id: ID}
-  const messageID = parseInt(req.params.id);
-  req.session.roomID = messageID;
+  const itemID = parseInt(req.params.id);
+  req.session.roomID = itemID;
 
-  getAllMessageCards()
-  .then(messages => {
-
-    const message = messages.find(message => message.id === messageID);
-
-    res.render("new-message", { message , user});
-  })
-  .catch(err => {
-    console.log("Threw the following error: ", err);
-  })
+    res.render("new-message", { ID , user, itemID});
 })
+
+router.post('/messages/new-message/:id', (req, res) => {
+    return res.redirect('/messages');
+})
+
 
 router.get('/favourites', (req, res)=>{
   const ID = req.session.user_id;
@@ -115,7 +104,7 @@ router.get('/:id', (req, res) => {
 
       if (item) {
         const timeSincePosted = timeAgo(item.created_at);
-        
+
         res.render("view_item", { item, timeSincePosted, user });
       } else {
         res.status(404).send('Item not found')

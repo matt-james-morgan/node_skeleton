@@ -29,8 +29,6 @@ $ (() => {
     `;
       $('.message-container').append(messageElement)
     }
-    // const username = data.user[0].username;
-    console.log("This is from message-history script: ", data);
     for (let myMessage in data.sentMessages) {
       if (data.sentMessages[myMessage].sender_id === parseInt(data.user)) {
         appendSentMessage(data.sentMessages[myMessage].message_content)
