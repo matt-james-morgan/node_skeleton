@@ -27,7 +27,8 @@ $(() => {
                 <h3>Item Name: ${escape(message.title)}</h3>
                 </div>
                 <p>Item Description: ${escape(message.description)}</p>
-                <p>Buyer: ${escape(message.name)} (<i>Me</i>)</p>
+                <p><b><u>Buyer</b>: Me </u></p>
+                <p><b><u>Seller</b>: ${escape(message.name)} </u></p>
             </div>
           <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
           </a>
@@ -49,7 +50,8 @@ $(() => {
               <h3>Item Name: ${escape(message.title)}</h3>
               </div>
               <p>Item Description: ${escape(message.description)}</p>
-              <p>Seller: ${escape(message.name)}</p>
+              <p><b><u>Buyer</b>: ${escape(message.name)}</u></p>
+              <p><b><u>Seller</b>:<u> Me </u></p>
           </div>
           <img class="message-card-img" src="${escape(message.image_url)}" alt="${escape(message.title)}">
         </a>

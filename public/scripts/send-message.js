@@ -21,10 +21,14 @@
       return res.json();
     })
     .then((data) => {
-      console.log(data);
-      if (data.sentMessages.length === 0) {
-        // Path to create ne message card and chat history
 
+      const redirectPromise = new Promise ((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+      if (data.sentMessages.length === 0 && data.sellerID[0].seller_id !== data.userID) {
+        // Path to create new message card and chat history
           const username = data.user[0].username;
           const room = data.roomID; // emit
           const userID = data.userID; // emit
@@ -36,15 +40,48 @@
           messageForm.addEventListener('submit', e => {
             e.preventDefault();
 
+            const appendSentMessage = function (message) {
+              const sendMessage = `
+              <div id="sent-message" class="sent-message">
+              <div class="sender"><h3>${username}:</h3>
+              </div>
+              <div class="message-contents"><p class="comment">${message}</p>
+              </div>
+              </div>
+              `;
+              $(".message-container").append(sendMessage);
+            };
+
             const message = escape(messageInput.value);
 
             socket.emit('send-chat-message', message, room);
-            socket.emit("receiver-id", receiverID);
             socket.emit('sender-id', userID);
+            messageInput.value = '';
+            socket.emit("receiver-id", receiverID);
+            socket.emit('buyer-id', userID);
             socket.emit("seller-id", sellerID);
 
-            messageInput.value = '';
-          window.location.href = "http://localhost:3000/messages/"
+            appendSentMessage(message);
+
+
+            const appendReceivedMessage = function (message, user) {
+              const messageElement = `
+              <div id="received-message" class="received-message">
+              <div class="sender"><h3>${user}</h3>
+              </div>
+              <div class="message-contents"><p class="comment">${message}</p>
+              </div>
+              </div>
+              `;
+              $('.message-container').append(messageElement)
+            }
+            socket.on('chat-message', data => {
+              appendReceivedMessage(data.message, data.name);
+            });
+
+            setTimeout(function() {
+              window.location.replace("http://localhost:3000/messages")}
+              , 500);
         });
 
       } else {
@@ -52,7 +89,7 @@
         const username = data.user[0].username;
         const room = data.roomID; // emit
         const userID = data.userID; // emit
-        const buyerID = data.messages[0].buyer_id; // emit
+        const buyerID = data.sentMessages[0].sender_id; // emit
         const sellerID = data.sellerID[0].sellerID; // emit
         socket.emit('chat-user', username);
         socket.emit("join-room", room);

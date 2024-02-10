@@ -224,7 +224,7 @@ const getSellerMessageCards = function (options, limit = 10) {
   let queryString = `
   SELECT * FROM user_messages
   JOIN items_for_sale ON items_for_sale.id = item_id
-  JOIN users ON users.id = seller_id
+  JOIN users ON users.id = buyer_id
   `;
 
   if (options.user_id) {
@@ -262,11 +262,11 @@ const getSentMessages = function (user, roomID) {
   };
 
   // Create new message card for seller in database as buyer
-  const newMessageCard = function (user, item) {
+  const newMessageCard = function (buyer, item) {
     return pool.query(`
     INSERT INTO user_messages (buyer_id, item_id)
     VALUES ($1, $2);
-    `, [user, item])
+    `, [buyer, item])
     .then((res) => res.rows)
     .catch((err) => console.log("SQL errpr message: ", err));
   };

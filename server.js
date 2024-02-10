@@ -91,18 +91,19 @@ const dbEntry = {};
       socket.join(room);
     })
 
-    socket.on('receiver-id', receiverID => {
-      dbEntry.receiverID = receiverID;
-      newMessage(dbEntry.senderID, dbEntry.receiverID, dbEntry.itemID, dbEntry.messageContent);
-    })
 
     socket.on('sender-id', senderID => {
       dbEntry.senderID = senderID;
     })
 
-    socket.on('seller-id', sellerID => {
-      dbEntry.sellerID = sellerID
-      newMessageCard(dbEntry.sellerID, dbEntry.itemID);
+    socket.on('receiver-id', receiverID => {
+      dbEntry.receiverID = receiverID;
+      newMessage(dbEntry.senderID, dbEntry.receiverID, dbEntry.itemID, dbEntry.messageContent);
+    })
+
+    socket.on('buyer-id', buyerID => {
+      dbEntry.buyerID = buyerID
+      newMessageCard(dbEntry.buyerID, dbEntry.itemID);
     })
 
   });
