@@ -58,9 +58,12 @@ li {
   border: $accent1 solid 5px;
   height: auto;
   width: fit-content;
-  block-size: fit-content;  
+  block-size: fit-content;
   margin-top: 20px;
   width: 50%;
   padding-bottom: 20px;
+  a {
+    max-height: 35px;
+  }
 }
 
